@@ -17,7 +17,8 @@ class LoginContainer extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    return (
+    return (<span className="mainDiv">
+    <span className="loginLayout">
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
           {getFieldDecorator('userName', {
@@ -38,15 +39,15 @@ class LoginContainer extends React.Component {
             valuePropName: 'checked',
             initialValue: true,
           })(
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox style={{ color:'red' }}>Remember me</Checkbox>
           )}
-          <a className="login-form-forgot" href="">Forgot password</a>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
+          <Button className="login-form-forgot">Forgot password</Button>
           Or <a href="">register now!</a>
         </FormItem>
-      </Form>
+      </Form></span></span>
     );
   }
 }

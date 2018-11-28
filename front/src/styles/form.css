@@ -1,9 +1,30 @@
-#components-form-demo-normal-login .login-form {
-  max-width: 300px;
+.mainDiv {
+	display: table;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-image: url("images/astro.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
-#components-form-demo-normal-login .login-form-forgot {
-  float: right;
+
+.loginLayout {
+	display: table-cell;
+	vertical-align: middle;
 }
-#components-form-demo-normal-login .login-form-button {
-  width: 100%;
+
+.login-form {
+	max-width: 300px;
+	margin: auto;
+}
+
+.login-form-forgot {
+	float: right;
+}
+
+.login-form-button {
+	width: 100%;
 }
