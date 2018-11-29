@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './login.js';
+import Checkin from './entry/checkin.js';
 
-ReactDOM.render(<Login />, document.getElementById('ForYou'));
+ReactDOM.render(<Checkin />, document.getElementById('ForYou'));

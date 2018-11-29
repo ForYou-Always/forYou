@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import './styles/form.css';
+import '../styles/form.css';
 
 const FormItem = Form.Item;
 
@@ -20,6 +20,7 @@ class LoginContainer extends React.Component {
     return (<span className="mainDiv">
     <span className="loginLayout">
       <Form onSubmit={this.handleSubmit} className="login-form">
+        <img src="./front/src/styles/images/ForYou.jpg" height="80" width="235" style={{ marginBottom:5 }} />
         <FormItem>
           {getFieldDecorator('userName', {
             rules: [{ required: true, message: 'Please input your username!' }],
@@ -41,10 +42,10 @@ class LoginContainer extends React.Component {
           })(
             <Checkbox style={{ color:'red' }}>Remember me</Checkbox>
           )}
+          <a className="login-form-forgot">Forgot password</a>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
-          <Button className="login-form-forgot">Forgot password</Button>
           Or <a href="">register now!</a>
         </FormItem>
       </Form></span></span>

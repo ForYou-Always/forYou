@@ -5,10 +5,10 @@
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-image: url("images/astro.jpg");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+/* 	background-image: url("images/astro.jpg"); */
+/* 	background-position: center; */
+/* 	background-repeat: no-repeat; */
+/* 	background-size: cover; */
 }
 
 .loginLayout {
@@ -17,8 +17,13 @@
 }
 
 .login-form {
-	max-width: 300px;
+	border: 1px solid;
+	padding: 50px;
+	max-width: 340px;
 	margin: auto;
+	border-radius:50px;
+	background: antiquewhite;
+	height:420px;
 }
 
 .login-form-forgot {

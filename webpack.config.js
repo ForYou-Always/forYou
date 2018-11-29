@@ -29,9 +29,23 @@ module.exports = {
         	 use: [ 'style-loader', 'css-loader' ]
          },
          {
-             test : /\.jpg$/,
-             exclude: /(node_modules)/,
-             loader : 'file-loader'
+        	 test: /\.(jpe?g|png|jpg|gif|svg|ico)$/i,
+        	 use: [{
+        		 loader: 'file-loader',
+        		 options: {
+        			 name: '[name].[ext]',
+        			 outputPath: 'images/'
+        		 }
+        	 }]
+         },
+         {
+        	 test: /\.(html)$/,
+        	 use: {
+        		 loader: 'html-loader',
+        		 options: {
+        			 attrs: ['img:src', 'link:href']
+        		 }
+        	 }
          }
       ]
    },
@@ -41,3 +55,22 @@ module.exports = {
       })
    ]
 }
+
+
+
+
+//{
+//	  // ASSET LOADER
+//	  test: /\.(woff|woff2|ttf|eot)$/,
+//	  loader: 'file-loader'
+//	},
+//	{
+//	  //IMAGE LOADER
+//	  test: /\.(jpe?g|png|gif|svg)$/i,
+//	  loader:'file-loader'
+//	},
+//	{
+//	  // HTML LOADER
+//	  test: /\.html$/,
+//	  loader: 'html-loader'
+//	},
