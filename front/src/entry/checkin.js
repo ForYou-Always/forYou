@@ -1,5 +1,7 @@
 import React from 'react';
+import CustomParticle from '../styles/customParticle';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { withRouter } from 'react-router-dom';
 import '../styles/form.css';
 
 const FormItem = Form.Item;
@@ -17,7 +19,11 @@ class LoginContainer extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    return (<span className="mainDiv">
+    const { history } = this.props;
+    
+    return (
+    		<div>
+    		<span className="mainDiv">
     <span className="loginLayout">
       <Form onSubmit={this.handleSubmit} className="login-form">
         <img src="./front/src/styles/images/ForYou.jpg" height="80" width="235" style={{ marginBottom:5 }} />
@@ -46,12 +52,16 @@ class LoginContainer extends React.Component {
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          Or <a onClick={() => history.push('/register')} > register now!</a>
         </FormItem>
-      </Form></span></span>
+      </Form>
+      </span>
+      </span>
+      <CustomParticle/>
+      </div>
     );
   }
 }
 
 const WrappedLoginContainer = Form.create()(LoginContainer);
-export default WrappedLoginContainer;
+export default withRouter(WrappedLoginContainer);
