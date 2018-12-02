@@ -1,5 +1,7 @@
 const express = require('express');
 const server = express();
+const bodyParser = require('body-parser');
+
 const CONST = require('./src/constant.js');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
@@ -12,6 +14,8 @@ server.get('/', (req,res) => res.send('Server Started'));
 
 /*Configure static files*/
 server.use(express.static('static'));
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
 
 /*
  *Express Routing with middleware

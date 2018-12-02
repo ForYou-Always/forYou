@@ -3,17 +3,17 @@ const { Schema, model } = mongoose;
 const CONSTANTS = require('./collectionConst');
 
 const userControlSchema = new Schema({
-	mail_id,
-	user_name,
-	hash,
-	create_date,
-	update_date
+	mail_id: String,
+	user_name: String,
+	hash: String,
+	create_date: { type: Date, default: Date.now },
+	update_date: { type: Date, default: Date.now }
 });
 
 const userSaltSchema = new Schema({
-	mail_id,
-	salt,
-	iterations
+	mail_id: String,
+	salt: String,
+	iterations: Number,
 });
 
 
