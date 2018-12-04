@@ -15,7 +15,7 @@ export default class Navigator extends Component {
    		  <Route exact path="/" render={() => (<Redirect to="/login" />)} />
           <Route exact path="/login" component={Checkin} />
           <Route exact path="/register" component={SignUp} />
-         </Switch>
+        </Switch>
       </Router>
     );
   }
