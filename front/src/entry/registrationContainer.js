@@ -3,6 +3,7 @@ import Particles from 'react-particles-js';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import CustomParticle from '../styles/customParticle';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../styles/form.css';
 
 const FormItem = Form.Item;
@@ -150,4 +151,4 @@ class Signup extends Component {
 
 const WrappedHorizontalLoginForm = Form.create()(Signup);
 
-export default withRouter(WrappedHorizontalLoginForm);
+export default connect(null)(withRouter(WrappedHorizontalLoginForm));

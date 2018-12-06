@@ -2,6 +2,7 @@ import React from 'react';
 import CustomParticle from '../styles/customParticle';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../styles/form.css';
 
 const FormItem = Form.Item;
@@ -61,4 +62,4 @@ class LoginContainer extends React.Component {
 }
 
 const WrappedLoginContainer = Form.create()(LoginContainer);
-export default withRouter(WrappedLoginContainer);
+export default connect(null)(withRouter(WrappedLoginContainer));
