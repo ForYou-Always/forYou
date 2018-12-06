@@ -5,10 +5,10 @@
 	left: 0;
 	height: 100%;
 	width: 100%;
-/* 	background-image: url("images/astro.jpg"); */
-/* 	background-position: center; */
-/* 	background-repeat: no-repeat; */
-/* 	background-size: cover; */
+	/* 	background-image: url("images/astro.jpg"); */
+	/* 	background-position: center; */
+	/* 	background-repeat: no-repeat; */
+	/* 	background-size: cover; */
 }
 
 .loginLayout {
@@ -21,9 +21,23 @@
 	padding: 50px;
 	max-width: 340px;
 	margin: auto;
-	border-radius:50px;
-	background: antiquewhite;
-	height:420px;
+	border-radius: 50px;
+	background: #c8c8c8;
+	height: 420px;
+}
+
+.signup-form {
+	border: 1px solid;
+	padding-top: 46px;
+	padding-left: 0px;
+	max-width: 530px;
+	margin: auto;
+	border-radius: 50px;
+	background: #c8c8c8;
+	height: 420px;
+	padding-right: 30px;
+	padding-bottom: 20px;
+	padding-left: 0px;
 }
 
 .login-form-forgot {
