@@ -3,6 +3,8 @@ import Particles from 'react-particles-js';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import CustomParticle from '../styles/customParticle';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { registerUser } from './reduxFlow/entryActions';
 import '../styles/form.css';
 
 const FormItem = Form.Item;
@@ -42,6 +44,16 @@ class Signup extends Component {
 				confirmDirty: false,
 				autoCompleteResult: [],
 		}
+	}
+	
+	componentWillMount(){
+		const { dispatch } = this.props;
+		//Test Data
+		const req = {
+				user_name:'Admin',
+				password:'Admin@abcd',
+		}
+		registerUser(req ,dispatch);
 	}
 
 	handleSubmit(e) {
@@ -148,6 +160,12 @@ class Signup extends Component {
 
 }
 
+function mapStatetoProps(state){
+	return{
+		singupData:  state.get('entry').get('getSingupInfo')
+	}
+}
+
 const WrappedHorizontalLoginForm = Form.create()(Signup);
 
-export default withRouter(WrappedHorizontalLoginForm);
+export default connect(mapStatetoProps)(withRouter(WrappedHorizontalLoginForm));

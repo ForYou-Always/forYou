@@ -16,12 +16,13 @@ router.post('/signin',(req,res) => {
 	
 });
 
-router.post('/signup',async(req,res) => {
-  await userControlService.registerNewUser(req);
-  res.send('Success');
+router.post('/signup', async(req,res) => {
+  const response = await userControlService.registerNewUser(req);
+  console.log('------------->', response);
+  res.send(response);
 });
 
-router.put('/update/personal-info',(req,res) => {
+router.put('/update/personal-info', async(req,res) => {
 	
 });
 

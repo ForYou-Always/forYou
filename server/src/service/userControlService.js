@@ -2,9 +2,9 @@ const { userControlModel, userSaltModel } = require('../dbStore/schemaModel/user
 
 const registerNewUser = async(req, res) => {
 	const userRegisterData = req.body;
-	console.log('------------->',userRegisterData);
 	const userControl = new userControlModel();
 //	await userControl.save();
+	return userRegisterData;
 };
 
 module.exports = {

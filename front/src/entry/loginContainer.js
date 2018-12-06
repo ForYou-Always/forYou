@@ -1,13 +1,15 @@
 import React from 'react';
-import CustomParticle from '../styles/customParticle';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import CustomParticle from '../styles/customParticle';
+import * as Actions from './reduxFlow/entryActions';
 import '../styles/form.css';
 
 const FormItem = Form.Item;
 
 class LoginContainer extends React.Component {
-
+	
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -61,4 +63,4 @@ class LoginContainer extends React.Component {
 }
 
 const WrappedLoginContainer = Form.create()(LoginContainer);
-export default withRouter(WrappedLoginContainer);
+export default connect(null)(withRouter(WrappedLoginContainer));

@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './router';
+import { createStore } from 'redux'
+import { Provider } from "react-redux";
+import Navigator from './navigator';
+import RootReducer from './rootReducer';
 
-ReactDOM.render(<Routes />, document.getElementById('ForYou'));
+const store = createStore(RootReducer);
+
+ReactDOM.render(<Provider store={store}>
+	  <Navigator />
+	</Provider>, document.getElementById('ForYou'));
 

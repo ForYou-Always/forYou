@@ -4,7 +4,7 @@ const FRONT_END_PATH = './front/';
 const FRONT_END_SRC_PATH = './front/src/';
 
 module.exports = {
-   entry: FRONT_END_SRC_PATH+'./root.js',
+   entry: ['babel-polyfill', FRONT_END_SRC_PATH+'./root.js'],
    output: {
       path: path.join(__dirname, FRONT_END_PATH+'static'),
       filename: 'foryou_bundle.js'
@@ -49,28 +49,11 @@ module.exports = {
          }
       ]
    },
+   devtool:'source-map',
    plugins:[
       new HtmlWebpackPlugin({
-         template: FRONT_END_PATH+'dashboard.html'
+         template: FRONT_END_PATH+'dashboard.html',
+         inject:false
       })
    ]
 }
-
-
-
-
-//{
-//	  // ASSET LOADER
-//	  test: /\.(woff|woff2|ttf|eot)$/,
-//	  loader: 'file-loader'
-//	},
-//	{
-//	  //IMAGE LOADER
-//	  test: /\.(jpe?g|png|gif|svg)$/i,
-//	  loader:'file-loader'
-//	},
-//	{
-//	  // HTML LOADER
-//	  test: /\.html$/,
-//	  loader: 'html-loader'
-//	},
