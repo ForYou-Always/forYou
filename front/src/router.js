@@ -5,6 +5,7 @@ import createHashHistory from 'history/createHashHistory';
 
 import Checkin from './entry/checkin';
 import SignUp from './entry/signup';
+import NewsFeed from './news-feed/news-feed';
 
 const history = createHashHistory();
 export default class Navigator extends Component {
@@ -12,9 +13,10 @@ export default class Navigator extends Component {
     return (
       <Router history={history}>
         <Switch>
-   		  <Route exact path="/" render={() => (<Redirect to="/login" />)} />
+   		  <Route exact path="/" render={() => (<Redirect to="/newsfeed" />)} />
           <Route exact path="/login" component={Checkin} />
           <Route exact path="/register" component={SignUp} />
+          <Route exact path="/newsfeed" component={NewsFeed} />
         </Switch>
       </Router>
     );
