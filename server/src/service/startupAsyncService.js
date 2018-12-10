@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { UserControlModel, UserSaltlModel } = require('../dbStore/schemaModel/userSchema');
+const { UserControlModel, UserSaltModel } = require('../dbStore/schemaModel/userSchema');
 const profiles = require('../startupScripts/legacyProfiles');
 
 const profileScript = async () =>{
@@ -26,7 +26,7 @@ async function secureUserProfile (mail_id, password) {
 
   const controlData = await userControlModel.save();
 
-  const userSaltlModel = new UserSaltlModel({
+  const userSaltlModel = new UserSaltModel({
     _id: controlData._id,
     mail_id,
     salt,

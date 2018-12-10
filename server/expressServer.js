@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const CONST = require('./src/constant');
@@ -34,5 +35,13 @@ server.use(bodyParser.json());
  *configure it with suitable prefix
  */
 server.use('/user', userControlRouter);
+
+
+/*Custom Error handler*/
+server.use((err,req,res,next) => {
+  res.status(500).send(err);
+});
+
+server.use(session({ secret: 'forYou-mern-stack-app' }));
 
 profileScript();

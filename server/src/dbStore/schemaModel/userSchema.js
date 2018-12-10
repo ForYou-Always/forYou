@@ -21,9 +21,9 @@ const userSaltSchema = new Schema({
  * Define Models
  **/
 const UserControlModel = model(CONSTANTS.USER_CONTROL, userControlSchema);
-const UserSaltlModel = model(CONSTANTS.USER_SALT, userSaltSchema);
+const UserSaltModel = model(CONSTANTS.USER_SALT, userSaltSchema);
 
 module.exports={
    UserControlModel,
-   UserSaltlModel
+   UserSaltModel
 };

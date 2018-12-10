@@ -8,21 +8,22 @@ router.use((req,res,next) => {
 	next();
 });
 
-router.get('/info/:mail',(req,res) => {
+router.get('/info/:mail',async (req,res,next) => {
 	
 });
 
-router.post('/signin',(req,res) => {
-	
+router.post('/signin',async (req,res,next) => {
+  const response = await userControlService.validateUser(req,next);
+  res.send(response);
 });
 
-router.post('/signup', async(req,res) => {
-  const response = await userControlService.registerNewUser(req);
+router.post('/signup', async(req,res,next) => {
+  const response = await userControlService.registerNewUser(req, next);
   console.log('------------->', response);
   res.send(response);
 });
 
-router.put('/update/personal-info', async(req,res) => {
+router.put('/update/personal-info', async(req, res, next) => {
 	
 });
 
