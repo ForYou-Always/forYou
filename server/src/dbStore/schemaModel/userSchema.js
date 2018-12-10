@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { Schema, model } = mongoose;
+const { mongORM } = require('../connection');
+const { Schema, model } = mongORM;
 const CONSTANTS = require('./collectionConst');
 
 const userControlSchema = new Schema({
@@ -20,10 +20,10 @@ const userSaltSchema = new Schema({
 /*
  * Define Models
  **/
-const userControlModel = model(CONSTANTS.USER_CONTROL, userControlSchema);
-const userSaltlModel = model(CONSTANTS.USER_SALT, userControlSchema);
+const UserControlModel = model(CONSTANTS.USER_CONTROL, userControlSchema);
+const UserSaltlModel = model(CONSTANTS.USER_SALT, userSaltSchema);
 
 module.exports={
-  userControlModel,
-  userSaltlModel
+   UserControlModel,
+   UserSaltlModel
 };

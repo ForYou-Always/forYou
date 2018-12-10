@@ -2,7 +2,8 @@ const express = require('express');
 const server = express();
 const bodyParser = require('body-parser');
 
-const CONST = require('./src/constant.js');
+const CONST = require('./src/constant');
+const { profileScript } = require('./src/service/startupAsyncService');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
 
@@ -33,3 +34,5 @@ server.use(bodyParser.json());
  *configure it with suitable prefix
  */
 server.use('/user', userControlRouter);
+
+profileScript();
