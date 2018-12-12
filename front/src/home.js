@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
+import { createStore } from 'redux';
 import { Provider } from "react-redux";
-import Navigator from './navigator';
-import RootReducer from './rootReducer';
+import HomeNavigator from './homeNavigator';
+import HomeReducer from './homeReducer';
 
-const store = createStore(RootReducer);
+const store = createStore(HomeReducer);
 
 ReactDOM.render(
     <Provider store={store}>
-  	  <Navigator />
+  	  <HomeNavigator />
   	</Provider>, document.getElementById('ForYou'));
 

@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux'
 import { Provider } from "react-redux";
-import EntryNavigator from './entryNavigator';
-import RootReducer from './rootReducer';
+import DoorNavigator from './doorNavigator';
+import DoorReducer from './doorReducer';
 
-const store = createStore(RootReducer);
+const store = createStore(DoorReducer);
 
 ReactDOM.render(<Provider store={store}>
-	  <EntryNavigator />
+	  <DoorNavigator />
 	</Provider>, document.getElementById('ForYou'));
 
