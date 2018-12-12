@@ -1,4 +1,4 @@
-const USER_CONTROL = 'user_Control';
+const USER_CONTROL = 'user_control';
 const USER_SALT = 'user_salt';
 
 

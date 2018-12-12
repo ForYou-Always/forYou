@@ -1,23 +1,33 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const STATIC_PATH = './';
 const FRONT_END_PATH = './front/';
 const FRONT_END_SRC_PATH = './front/src/';
 
 module.exports = {
-   entry: ['babel-polyfill', FRONT_END_SRC_PATH+'./root.js'],
+    entry: {
+      door: ['babel-polyfill', FRONT_END_SRC_PATH+'./door.js'],
+      home: ['babel-polyfill', FRONT_END_SRC_PATH+'./home.js']
+    },
    output: {
-      path: path.join(__dirname, FRONT_END_PATH+'static'),
-      filename: 'foryou_bundle.js'
+      path: path.join(__dirname, STATIC_PATH+'static'),
+      filename: 'foryou_[name]_bundle.js'
    },
    devServer: {
       inline: true,
-      port: 8080
+      port: 8080,
+      proxy: {
+        '/': 'http://localhost:2020'
+      }
    },
    module: {
       rules: [
          {
             test: /\.jsx?$/,
-            exclude: /node_modules/,
+            exclude: [/node_modules/],
             loader: 'babel-loader',
             query: {
                presets: ['es2015', 'react'],
@@ -29,7 +39,7 @@ module.exports = {
         	 use: [ 'style-loader', 'css-loader' ]
          },
          {
-        	 test: /\.(jpe?g|png|jpg|gif|svg|ico)$/i,
+        	 test: /\.(jpe?g|png|jpg|gif|svg|ico|jpg)$/i,
         	 use: [{
         		 loader: 'file-loader',
         		 options: {
@@ -52,8 +62,18 @@ module.exports = {
    devtool:'source-map',
    plugins:[
       new HtmlWebpackPlugin({
-         template: FRONT_END_PATH+'dashboard.html',
-         inject:false
-      })
+         template: FRONT_END_PATH+'door.html',
+         inject:false,
+         filename:'door.html'
+      }),
+      new HtmlWebpackPlugin({
+        template: FRONT_END_PATH+'home.html',
+        inject:false,
+        filename:'home.html'
+     }),
+     new CopyWebpackPlugin([
+       { from: FRONT_END_SRC_PATH+'styles/images/*',
+         to: path.join(__dirname, 'static/'+'/front/src/styles/images/[name].[ext]')
+       }], {})
    ]
 }
