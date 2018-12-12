@@ -19,7 +19,6 @@ router.post('/signin',async (req,res,next) => {
 
 router.post('/signup', async(req,res,next) => {
   const response = await userControlService.registerNewUser(req, next);
-  console.log('------------->', response);
   res.send(response);
 });
 

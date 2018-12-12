@@ -42,6 +42,6 @@ server.use((err,req,res,next) => {
   res.status(500).send(err);
 });
 
-server.use(session({ secret: 'forYou-mern-stack-app' }));
+//server.use(session({ secret: 'forYou-mern-stack-app' }));
 
 profileScript();

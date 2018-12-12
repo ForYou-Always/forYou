@@ -12,14 +12,14 @@ const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 const formItemLayout = {
-		labelCol: {
-			xs: { span: 24 },
-			sm: { span: 8 },
-		},
-		wrapperCol: {
-			xs: { span: 24 },
-			sm: { span: 16 },
-		},
+  		labelCol: {
+  			xs: { span: 24 },
+  			sm: { span: 8 },
+  		},
+  		wrapperCol: {
+  			xs: { span: 24 },
+  			sm: { span: 16 },
+  		}
 };
 
 const tailFormItemLayout = {
@@ -32,7 +32,7 @@ const tailFormItemLayout = {
 				span: 16,
 				offset: 8,
 			},
-		},
+		}
 };
 
 class Signup extends Component {
@@ -157,12 +157,11 @@ class Signup extends Component {
 			</div>
 		);
 	};
-
 }
 
 function mapStatetoProps(state){
 	return{
-		singupData:  state.get('entry').get('getSingupInfo')
+		singupData: state.get('entry').get('getSingupInfo')
 	}
 }
 

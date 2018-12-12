@@ -4,10 +4,10 @@ const FRONT_END_PATH = './front/';
 const FRONT_END_SRC_PATH = './front/src/';
 
 module.exports = {
-   entry: ['babel-polyfill', FRONT_END_SRC_PATH+'./root.js'],
+   entry: ['babel-polyfill', FRONT_END_SRC_PATH+'./entry.js'],
    output: {
       path: path.join(__dirname, FRONT_END_PATH+'static'),
-      filename: 'foryou_bundle.js'
+      filename: 'foryou_entry_bundle.js'
    },
    devServer: {
       inline: true,
@@ -52,7 +52,7 @@ module.exports = {
    devtool:'source-map',
    plugins:[
       new HtmlWebpackPlugin({
-         template: FRONT_END_PATH+'dashboard.html',
+         template: FRONT_END_PATH+'entry.html',
          inject:false
       })
    ]

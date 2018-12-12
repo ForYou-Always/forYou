@@ -1,4 +1,4 @@
-import { FETCH } from './serverCall';
+import { FETCH, FETCH_TEXT } from './serverCall';
 
 function constructFormData(param){
   const formData = new FormData();
@@ -31,6 +31,15 @@ export const postReqForm = async (URL,param) =>{
   const response = await FETCH(URL, {
     method:'POST',
     body: constructFormData(param)
+  });
+  return response; 
+}
+
+export const postReqText = async (URL,param) =>{
+  const response = await FETCH_TEXT(URL, {
+    method:'POST',
+    headers: jsonHeader,
+    body: JSON.stringify(param)
   });
   return response; 
 }

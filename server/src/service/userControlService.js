@@ -10,20 +10,20 @@ const registerNewUser = async(req, next) => {
 };
 
 const validateUser = async(req, next) => {
-  const { mail_id, password } = req.body;
-  const userSaltInfo = await UserSaltModel.findOne({ mail_id: mail_id });
+  const { user_name, password } = req.body;
+  const userSaltInfo = await UserSaltModel.findOne({ mail_id: user_name });
   if(!userSaltInfo){
-    next({ customError: 'Invalid Credentials '})
+    next({ customError: 'User doesnot Exists', userSaltInfo})
     return;
   }
   
   const { salt, iterations } = userSaltInfo;
   const passwordHash = getHashedPassword(salt, password, iterations);
 
-  const userHashInfo = await UserControlModel.findOne({ mail_id: mail_id });
+  const userHashInfo = await UserControlModel.findOne({ mail_id: user_name });
   
   if(passwordHash !== userHashInfo.hash){
-    next({ customError: 'Invalid Credentials '})
+    next({ customError: 'Invalid Credentials'})
     return;
   }
   

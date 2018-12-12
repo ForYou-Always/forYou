@@ -1,23 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import CustomParticle from '../styles/customParticle';
-import * as Actions from './reduxFlow/entryActions';
+import { loginUser } from './reduxFlow/entryActions';
 import '../styles/form.css';
 
 const FormItem = Form.Item;
+const styles = {
+    iconStyle:{
+      color: 'rgba(0,0,0,.25)'
+    },
+    rememberBox:{
+      color:'red'
+    }
+}
 
 class LoginContainer extends React.Component {
+  
+  constructor(props){
+    super(props);
+    this.state = {
+        loading: false,
+    }
+  }
 	
-	handleSubmit = (e) => {
-		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
-			if (!err) {
-				console.log('Received values of form: ', values);
-			}
-		});
-	}
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    let isValid = false;
+    this.props.form.validateFields((err) =>  isValid = !err);
+    if(!isValid){
+      return;
+    } 
+    
+    await this.handleUserLogin().catch(this.handleError);
+  }
+  
+  handleUserLogin = async() => {
+    this.setState({ loading: true });
+    const param = this.props.form.getFieldsValue();
+    await loginUser(param, this.props.dispatch);
+    message.success(`Login Successful - ${param.user_name}`);
+    this.setState({ loading: false });
+  }
+  
+  handleError = (err) => {
+    message.error(`${err.customError}`);
+    this.setState({ loading: false });
+  }
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
@@ -29,31 +59,28 @@ class LoginContainer extends React.Component {
 				<span className="loginLayout">
 					<Form onSubmit={this.handleSubmit} className="login-form">
 						<img src="./front/src/styles/images/ForYou.jpg" height="80" width="235" style={{ marginBottom:5 }} />
+						
 						<FormItem>
-							{getFieldDecorator('userName', {
-								rules: [{ required: true, message: 'Please input your username!' }],
-							})(
-									<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-							)}
+							{getFieldDecorator('user_name', { rules: [{ required: true, message: 'Please input your username!' }] })
+							  (<Input prefix={<Icon type="user" style={styles.iconStyle} />} placeholder="Username" />)
+							}
 						</FormItem>
+							  
 						<FormItem>
-							{getFieldDecorator('password', {
-								rules: [{ required: true, message: 'Please input your Password!' }],
-							})(
-									<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-							)}
+							{getFieldDecorator('password', { rules: [{ required: true, message: 'Please input your Password!' }] })
+							  (<Input prefix={<Icon type="lock" style={styles.iconStyle} />} type="password" placeholder="Password" />)
+							}
 						</FormItem>
+							  
 						<FormItem>
-							{getFieldDecorator('remember', {
-								valuePropName: 'checked',
-								initialValue: true,
-							})(
-									<Checkbox style={{ color:'red' }}>Remember me</Checkbox>
-							)}
+    						{getFieldDecorator('remember', { valuePropName: 'checked', initialValue: true })
+    						  (<Checkbox style={styles.rememberBox}>Remember me</Checkbox>)
+    						}
 							<a className="login-form-forgot">Forgot password</a>
 							<Button type="primary" htmlType="submit" className="login-form-button">Log in</Button>
 							Or <a onClick={() => history.push('/register')} > register now!</a>
 						</FormItem>
+						
 					</Form>
 				</span>
 				</span>
