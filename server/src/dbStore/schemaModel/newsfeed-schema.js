@@ -1,5 +1,10 @@
 var data = {
     id: {
+        loginUserDetails:{
+            id: String,
+            src: String,
+            name: String
+        },
         userDetails:{
             id: String,
             src: String,
