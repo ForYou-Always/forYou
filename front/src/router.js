@@ -13,7 +13,7 @@ export default class Navigator extends Component {
     return (
       <Router history={history}>
         <Switch>
-   		  <Route exact path="/" render={() => (<Redirect to="/newsfeed" />)} />
+   		  <Route exact path="/" render={() => (<Redirect to="/login" />)} />
           <Route exact path="/login" component={Checkin} />
           <Route exact path="/register" component={SignUp} />
           <Route exact path="/newsfeed" component={NewsFeedScreen} />
