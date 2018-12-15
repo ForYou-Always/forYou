@@ -29,7 +29,7 @@ server.use(bodyParser.json());
 
 
 /*app-server will run on this port*/
-server.listen(2020);
+server.listen(process.env.PORT || 2020);
 
 /*
  *Express Routing with middleware
