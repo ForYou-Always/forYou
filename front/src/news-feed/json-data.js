@@ -1,11 +1,6 @@
 const data = 
 [
     {
-        loginUserDetails:{
-            id: 'praveen',
-            src: "./front/src/styles/images/userImg1.png",
-            name: 'Praveen kumar'
-        },
         userDetails:{
             id: 'ravi',
             src: "./front/src/styles/images/userImg2.png",
