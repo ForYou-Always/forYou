@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
@@ -43,6 +44,7 @@ server.use((err,req,res,next) => {
   res.status(500).send(err);
 });
 
-server.use(session({ secret: 'forYou-mern-stack-app' }));
+//server.use(cookieParser());
+//server.use(session({ secret: 'Hope this is not a good secret key. Hahaha...' }));
 
 profileScript();
