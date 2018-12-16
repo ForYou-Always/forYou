@@ -14,7 +14,8 @@ class PicturesWall extends React.Component {
       previewVisible: true,
     });
   }
-  handleChange = ({ fileList }) => this.setState({ fileList })
+  handleChange = ({ fileList }) => this.setState({ fileList });
+  getFileList = () => this.state.fileList;
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
     const leftTopPadding = {

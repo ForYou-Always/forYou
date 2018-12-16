@@ -27,6 +27,10 @@ class NewsFeedScreen extends React.Component{
         const padding = {
             padding: '8px 8px 8px 8px'
         };
+        const clickPostButton = () => {
+            alert(this.refs.postTextArea.textAreaRef.value);
+            console.log(this.refs.refPicturesWall.getFileList());
+        }
         return (
             <div>
                 <Layout>
@@ -40,14 +44,14 @@ class NewsFeedScreen extends React.Component{
                                         <Col span={22}>
                                             <Meta style={padding}
                                                 avatar={<Avatar src={userDetails.loginUserDetails.src}/>}
-                                                title={<TextArea placeholder='Whats in your mind.'
+                                                title={<TextArea ref='postTextArea' placeholder='Whats in your mind.'
                                                 autosize={{ minRows: 2, maxRows: 6 }}/>}/>
                                         </Col>
                                         <Col span={2}>
-                                            <Button type='primary'>Post</Button>
+                                            <Button type='primary' onClick={clickPostButton.bind(this)}>Post</Button>
                                         </Col>
                                     </Row>
-                                    <PicturesWall></PicturesWall>
+                                    <PicturesWall ref='refPicturesWall'></PicturesWall>
                                 </Card>
                                 {data.map((value,index) => <NewsFeed key={index} value={value}></NewsFeed>)}
                             </Content>

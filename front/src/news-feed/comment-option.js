@@ -9,17 +9,17 @@ class CommentOption extends React.Component {
             <Row type="flex" justify='space-between' align='middle'>
                 <Col span={4}>
                     <ButtonGroup>
-                        <Button icon='like'></Button>
+                        <Button icon='like' shape='circle'></Button>
                         <Button icon='dislike'></Button>
                         <Button icon='smile'></Button>
                         <Button icon='share-alt'></Button>
                     </ButtonGroup>
                 </Col>
-                <Col span={17} style={{paddingLeft:'8px'}}>
+                <Col span={16} style={{paddingLeft:'8px'}}>
                     <TextArea placeholder='Add a comment'/>
                 </Col>
-                <Col span={3} style={{paddingLeft:'8px'}}>
-                    <Button block='true' type='primary'>Comment</Button>
+                <Col span={4} style={{paddingLeft:'8px'}}>
+                    <Button type='primary'>Comment</Button>
                 </Col>
             </Row>
         );
