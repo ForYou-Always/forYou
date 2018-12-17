@@ -1,0 +1,6 @@
+{
+  "authentication": {
+    "secret": "Hope this is not a good secret key. Hahaha...",
+    "tokenName": "For_You_Token"
+  }
+}

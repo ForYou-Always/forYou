@@ -1,20 +1,21 @@
 const express = require('express');
 const router = express.Router();
+//const { validateSession } = require('../utility/utils');
 const userControlService = require('../service/userControlService');
 
 /*log to register the incoming request*/
-router.use((req,res,next) => {
-	console.debug();
+router.use(async (req,res,next) => {
+//  await validateSession(req,res,next);
 	next();
 });
 
-router.get('/info/:mail',async (req,res,next) => {
+router.get('/info/:mail', async (req,res,next) => {
 	
 });
 
-router.post('/signin',async (req,res,next) => {
-  const response = await userControlService.validateUser(req,next);
-  res.send(response);
+router.post('/signin', async (req,res,next) => {
+  const response = await userControlService.validateUser(req, res, next);
+//  res.send(response);
 });
 
 router.post('/signup', async(req,res,next) => {

@@ -1,10 +1,11 @@
 const express = require('express');
 const server = express();
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const CONST = require('./src/constant');
+const { validateSession } = require('./src/utility/utils');
 const { profileScript } = require('./src/service/startupAsyncService');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
@@ -18,6 +19,9 @@ server.use(function(req, res, next) {
 	next();
 });
 
+server.use(cookieParser());
+//server.use(session({ secret: 'Hope this is not a good secret key. Hahaha...' }));
+
 /*app-server start confirmation*/
 server.get('/', (req,res) => res.redirect('door.html'));
 //server.get('/', (req,res) => res.redirect('home.html'));
@@ -28,15 +32,15 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 
-/*app-server will run on this port*/
-server.listen(process.env.PORT || 2020);
+///*app-server will run on this port*/
+//server.listen(process.env.PORT || 2020);
 
 /*
  *Express Routing with middleware
  *Require module-router file
  *configure it with suitable prefix
  */
-server.use('/user', userControlRouter);
+server.use('/user', validateSession, userControlRouter);
 
 
 /*Custom Error handler*/
@@ -44,7 +48,8 @@ server.use((err,req,res,next) => {
   res.status(500).send(err);
 });
 
-//server.use(cookieParser());
-//server.use(session({ secret: 'Hope this is not a good secret key. Hahaha...' }));
-
 profileScript();
+
+
+/*app-server will run on this port*/
+server.listen(process.env.PORT || 2020);
