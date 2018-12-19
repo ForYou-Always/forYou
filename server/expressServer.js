@@ -23,7 +23,11 @@ server.use(cookieParser());
 //server.use(session({ secret: 'Hope this is not a good secret key. Hahaha...' }));
 
 /*app-server start confirmation*/
-server.get('/', (req,res) => res.redirect('door.html'));
+server.get('/', async (req,res,next) => {
+  await validateSession(req,res,next);
+  console.log('test');
+//  res.redirect('door.html');
+});
 //server.get('/', (req,res) => res.redirect('home.html'));
 
 /*Configure static files*/

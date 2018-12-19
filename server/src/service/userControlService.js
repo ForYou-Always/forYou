@@ -38,7 +38,7 @@ const authenticateUser = async(userId, res) => {
   const { secret, tokenName} = authentication;
   const generatedJWT = jwt.sign({ userId }, secret);
   const cookieSettings = {};
-  res.cookie(tokenName, generatedJWT).send("Authentication Successful");
+  res.cookie(tokenName, generatedJWT).send({success: "Authentication Successful"});
 }
 
 
