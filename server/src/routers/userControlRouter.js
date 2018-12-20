@@ -5,7 +5,6 @@ const userControlService = require('../service/userControlService');
 
 /*log to register the incoming request*/
 router.use(async (req,res,next) => {
-//  await validateSession(req,res,next);
 	next();
 });
 
@@ -14,8 +13,7 @@ router.get('/info/:mail', async (req,res,next) => {
 });
 
 router.post('/signin', async (req,res,next) => {
-  const response = await userControlService.validateUser(req, res, next);
-//  res.send(response);
+  await userControlService.validateUser(req, res, next);
 });
 
 router.post('/signup', async(req,res,next) => {

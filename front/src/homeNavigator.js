@@ -11,9 +11,9 @@ export default class Navigator extends Component {
     return (
       <Router history={history}>
         <Switch>
-   		  <Route exact path="/" render={() => (<Redirect to="/register" />)} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={SignUp} />
+   		  <Route exact path="/" render={() => (<Redirect to="/profile" />)} />
+          <Route exact path="/home" component={Login} />
+          <Route exact path="/profile" component={SignUp} />
         </Switch>
       </Router>
     );

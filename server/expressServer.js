@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const CONST = require('./src/constant');
-const { validateSession } = require('./src/utility/utils');
+const { validateSession } = require('./src/utility/authenticationFilter');
 const { profileScript } = require('./src/service/startupAsyncService');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
@@ -22,28 +22,19 @@ server.use(function(req, res, next) {
 server.use(cookieParser());
 //server.use(session({ secret: 'Hope this is not a good secret key. Hahaha...' }));
 
-/*app-server start confirmation*/
-server.get('/', async (req,res,next) => {
-  await validateSession(req,res,next);
-  console.log('test');
-//  res.redirect('door.html');
-});
-//server.get('/', (req,res) => res.redirect('home.html'));
 
-/*Configure static files*/
+/*Configure static files
+ * Authenticate static file-serve
+ * */
 server.use(express.static('../static'));
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
+server.get('*', async (req,res,next) => await validateSession(req,res,next));
 
-
-///*app-server will run on this port*/
-//server.listen(process.env.PORT || 2020);
 
 /*
- *Express Routing with middleware
- *Require module-router file
- *configure it with suitable prefix
- */
+ *Express-Routing  middleware
+*/ 
 server.use('/user', validateSession, userControlRouter);
 
 
