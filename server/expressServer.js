@@ -22,6 +22,7 @@ server.use(function(req, res, next) {
 server.use(cookieParser());
 //server.use(session({ secret: 'Hope this is not a good secret key. Hahaha...' }));
 
+server.get('*', validateSession);
 
 /*Configure static files
  * Authenticate static file-serve
@@ -29,7 +30,6 @@ server.use(cookieParser());
 server.use(express.static('../static'));
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
-server.get('*', async (req,res,next) => await validateSession(req,res,next));
 
 
 /*
