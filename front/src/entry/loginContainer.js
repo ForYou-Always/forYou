@@ -88,7 +88,7 @@ class LoginContainer extends React.Component {
 					</Form>
 				</span>
 				</span>
-				<CustomParticle/>
+				<CustomParticle email="v.gemail.cxom" />
 			</div>);
 	}
 }

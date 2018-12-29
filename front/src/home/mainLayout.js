@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Button, Tooltip } from 'antd';
 import '../styles/home.css';
 
 const { SubMenu } = Menu;
@@ -42,7 +42,7 @@ class MainLayout extends Component {
     	         <Button type="dashed" icon="notification" style={{ marginRight:10 }}/>
     	         <Button type="dashed" icon="message" style={{ marginRight:10 }}/>
     	         <Button type="dashed" icon="bars" style={{ marginRight:10 }}/>
-    	         <Button type="dashed" icon="logout"/>
+    	         <Tooltip placement="bottomRight" title="Logout"><Button type="dashed" icon="logout"/></Tooltip>
     	       </div>
     	     {false && <Menu
     	        theme="dark"
@@ -55,9 +55,7 @@ class MainLayout extends Component {
     	      </Menu>}</span>
     	    </Header>
     	    <Layout>
-    	      <Sider width={200} style={{
-        	        background: '#fff', overflow: 'auto', height: '92vh'
-        	      }}
+    	      <Sider width={200} style={{ background: '#fff', overflow: 'auto', height: '92vh' }}
     	          trigger={null}
         	      collapsible
                 collapsed={collapsed}
