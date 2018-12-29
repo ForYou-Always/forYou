@@ -32,7 +32,18 @@ validateToken = async (req, res, next) => {
     if(err){
       res.clearCookie(tokenName).redirect(loginRedirect);
     } else {
+
+      if(url===`/`){
+        res.redirect(homeRedirect);
+        return;
+      }
+      
       const isDoorPath = analyzeUrlPath(doorPath, url);
+      if(isDoorPath){
+        res.redirect(homeRedirect);
+        return;
+      }
+      
       if(isDoorPath){
         res.redirect(homeRedirect);
         return;
