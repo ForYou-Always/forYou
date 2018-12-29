@@ -6,7 +6,7 @@ import CustomParticle from '../styles/customParticle';
 import { loginUser } from './reduxFlow/entryActions';
 import '../styles/form.css';
 
-const homeRedirectPath = 'home.html#/home';
+const homeRedirectPath = 'home.html#/profile';
 const FormItem = Form.Item;
 const styles = {
     iconStyle:{
@@ -17,7 +17,7 @@ const styles = {
     }
 }
 
-class LoginContainer extends React.Component {
+class DashboardContainer extends React.Component {
   
   constructor(props){
     super(props);
@@ -93,5 +93,5 @@ class LoginContainer extends React.Component {
 	}
 }
 
-const WrappedLoginContainer = Form.create()(LoginContainer);
-export default connect(null)(withRouter(WrappedLoginContainer));
+const WrappedDashboardContainer = Form.create()(DashboardContainer);
+export default connect(null)(withRouter(WrappedDashboardContainer));
