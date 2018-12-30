@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb, Icon, Button, Tooltip } from 'antd';
-import '../../styles/home.css';
+import { Layout, Breadcrumb } from 'antd';
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
 const styles = {
     layout:{

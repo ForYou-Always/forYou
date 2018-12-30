@@ -1,3 +1,3 @@
-const PREFIX="HOME_";
+const PREFIX="LAYOUT_";
 
 export const RECEIVE_MENU_TOGGLE = `${PREFIX}RECEIVE_MENU_TOGGLE`;

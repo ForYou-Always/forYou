@@ -1,4 +1,4 @@
-import * as ACTION_TYPES from './homeActionTypes';
+import * as ACTION_TYPES from './layoutActionTypes';
 import { combineReducers } from 'redux-immutable';
 import { fromJS, List as immutableList, Map as immutableMap  } from 'immutable';
 
@@ -12,9 +12,9 @@ function switchSideToggle(state = false, action){
 	}
 };
 
-const homeReducer = combineReducers({
+const layoutReducer = combineReducers({
   switchSideToggle
 });
 
 
-export default homeReducer;
+export default layoutReducer;

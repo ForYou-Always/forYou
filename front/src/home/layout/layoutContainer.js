@@ -3,13 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb, Icon, Button, Tooltip } from 'antd';
 
-import Header from './layout/header';
-import SideMenu from './layout/sideMenu';
-import ContentBody from './layout/contentBody';
-import '../styles/home.css';
-
-//const { SubMenu } = Menu;
-//const { Header, Content, Sider } = Layout;
+import Header from './components/header';
+import SideMenu from './components/sideMenu';
+import ContentBody from './components/contentBody';
 
 class LayoutContainer extends Component {
   

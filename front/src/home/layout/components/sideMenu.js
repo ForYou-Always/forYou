@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb, Icon, Button, Tooltip } from 'antd';
-import '../../styles/home.css';
+import { Layout, Menu, Icon } from 'antd';
+import '../../../styles/home.css';
 
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Sider } = Layout;
 
 const styles={
     siderStyle:{
