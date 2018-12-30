@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
+    "postinstall": "npm run build",
+    "start": "cd server && npm install && npm start",
+    "start-dev": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +25,10 @@
     "style-loader": "0.23.1",
     "webpack": "4.26.1",
     "webpack-cli": "3.1.2"
+  },
+  "engines": {
+    "node": "8.11.2",
+    "npm": "5.6.0"
   },
   "devDependencies": {
     "babel-core": "6.26.3",

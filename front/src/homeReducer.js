@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux-immutable';
-import EntryReducer from './entry/reduxFlow/entryReducer';
+import LayoutReducer from './home/layout/flux/layoutReducer';
 
 
 export default combineReducers({
-	entry: EntryReducer
+	layout: LayoutReducer
 });

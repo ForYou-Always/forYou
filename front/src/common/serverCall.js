@@ -17,6 +17,14 @@ const analyzeHttpResponse = async(httpResponse, type) => {
     case 500:
       throw (await httpResponse.json());
       break;
+      
+    case 302:
+      const response = await httpResponse.json();
+      const { sessionExists, redirectUrl } = response;
+      if(sessionExists){
+        window.location.href=`${window.location.origin}/${redirectUrl}`;
+      }
+      break;
   }
   
   let result;

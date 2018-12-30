@@ -6,6 +6,7 @@ import CustomParticle from '../styles/customParticle';
 import { loginUser } from './reduxFlow/entryActions';
 import '../styles/form.css';
 
+const homeRedirectPath = 'home.html#/home';
 const FormItem = Form.Item;
 const styles = {
     iconStyle:{
@@ -41,7 +42,10 @@ class LoginContainer extends React.Component {
     const param = this.props.form.getFieldsValue();
     await loginUser(param, this.props.dispatch);
     message.success(`Login Successful - ${param.user_name}`);
-    this.setState({ loading: false });
+    setTimeout(() => {
+      window.location.href = `${window.location.origin}/${homeRedirectPath}`;
+      this.setState({ loading: false });
+    },100);
   }
   
   handleError = (err) => {
@@ -84,7 +88,7 @@ class LoginContainer extends React.Component {
 					</Form>
 				</span>
 				</span>
-				<CustomParticle/>
+				<CustomParticle />
 			</div>);
 	}
 }
