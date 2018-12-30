@@ -21,8 +21,8 @@ router.post('/signup', async(req,res,next) => {
   res.send(response);
 });
 
-router.put('/update/personal-info', async(req, res, next) => {
-	
+router.get('/signout', async(req, res, next) => {
+  userControlService.signOutUser(res, next);
 });
 
 module.exports = router;

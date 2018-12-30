@@ -13,6 +13,12 @@ const registerNewUser = async(req, next) => {
   return userRegisterData;
 };
 
+const signOutUser = async(res, next) => {
+  const { tokenName} = authentication;
+  res.clearCookie(tokenName).send({ msg: `Logout Success` });
+};
+
+
 const validateUser = async(req, res, next) => {
   const { user_name, password } = req.body;
   const userSaltInfo = await UserSaltModel.findOne({ mail_id: user_name });
@@ -47,5 +53,6 @@ function getHashedPassword (salt, password, iterations){
 
 module.exports = {
     registerNewUser,
-    validateUser
+    validateUser,
+    signOutUser
 }
