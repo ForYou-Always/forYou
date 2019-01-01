@@ -26,18 +26,28 @@
 	height: 420px;
 }
 
-.signup-form {
+/* .signup-form {
 	border: 1px solid;
-	padding-top: 46px;
-	padding-left: 0px;
-	max-width: 530px;
+	padding: 50px;
+	max-width: 450px;
 	margin: auto;
 	border-radius: 50px;
 	background: #c8c8c8;
 	height: 420px;
-	padding-right: 30px;
-	padding-bottom: 20px;
-	padding-left: 0px;
+} */
+
+
+.signup-form{
+	border: 1px solid;
+	padding: 50px;
+	max-width: 530px;
+	min-width: 530px;
+	margin: auto;
+	border-radius: 50px;
+	background: #000000;
+	height: 430px;
+/* 	padding-right: 20px; */
+/* 	padding-bottom: 20px; */
 }
 
 .login-form-forgot {
