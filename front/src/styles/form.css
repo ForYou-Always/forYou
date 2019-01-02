@@ -26,6 +26,17 @@
 	height: 420px;
 }
 
+
+.password-lost-form {
+	border: 1px solid;
+	padding: 30px;
+	max-width: 400px;
+	margin: auto;
+	border-radius: 20px;
+	background: #c8c8c8;
+	height: 200px;
+}
+
 /* .signup-form {
 	border: 1px solid;
 	padding: 50px;
