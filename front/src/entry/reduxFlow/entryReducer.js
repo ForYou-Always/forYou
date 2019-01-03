@@ -13,7 +13,11 @@ function getSignupInfo(state = immutableMap(), action){
 };
 
 const entryReducer = combineReducers({
+<<<<<<< HEAD
   getSignupInfo
+=======
+  getSignupInfo,
+>>>>>>> refs #fy7 reset password
 });
 
 

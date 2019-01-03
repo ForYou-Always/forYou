@@ -50,9 +50,10 @@ class ForgotPasswordContainer extends Component {
   }
 
   informPasswordLost =async (e) => {
+    this.setState({ loading: true });
     const { form, dispatch } = this.props;
     const param = form.getFieldsValue();
-    const responseResult = await forgotPassword(param,dispatch);
+    await forgotPassword(param,dispatch);
     message.success(`Request sent to Admin.Please check email - ${param.email} for resetting the password`);
     setTimeout(() => {
       window.location.href = `${window.location.origin}/${loginRedirectPath}`;
@@ -73,8 +74,7 @@ class ForgotPasswordContainer extends Component {
       <span className="mainDiv">
         <span className="loginLayout">
           <Form onSubmit={this.handleSubmit} className="password-lost-form">
-            <img src={imagePath} height="50" width="150" style={{ position:'relative', left:1 }} />
-            <span style={styles.title}> - Reset Request</span>
+            <img src={imagePath} height="80" width="235" style={{ position:'relative', left:15, marginBottom:20 }} />
             <FormItem>
               {getFieldDecorator('email', { rules: 
                 [{ type: 'email', message: 'The input is not valid E-mail!'},

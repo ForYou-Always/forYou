@@ -80,7 +80,7 @@ class LoginContainer extends React.Component {
     						{getFieldDecorator('remember', { valuePropName: 'checked', initialValue: true })
     						  (<Checkbox style={styles.rememberBox}>Remember me</Checkbox>)
     						}
-							<a className="login-form-forgot" onClick={() => history.push('/forgot-password')}>Forgot password</a>
+							<a className="login-form-forgot">Forgot password</a>
 							<Button type="primary" htmlType="submit" className="login-form-button">Log in</Button>
 							Or <a onClick={() => history.push('/register')} > register now!</a>
 						</FormItem>
