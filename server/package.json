@@ -11,29 +11,19 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "1.18.3",
-<<<<<<< HEAD
     "cookie-parser": "1.4.3",
     "express": "4.16.4",
     "express-session": "1.15.6",
     "jsonwebtoken": "8.4.0",
     "mongodb": "3.1.10",
-    "mongoose": "5.3.14"
+    "mongoose": "5.3.14",
+    "nodemailer": "4.7.0"
   },
   "engines": {
     "node": "8.11.2",
     "npm": "5.6.0"
   },
   "devDependencies": {
-=======
-    "express": "4.16.4",
-    "mongodb": "3.1.10",
-    "mongoose": "5.3.14",
-    "async-waterfall": "0.1.5",
-    "nodemailer": "4.7.0"
-  },
-  "devDependencies": {
-    "express-session": "1.15.6",
->>>>>>> refs #fy7 signup CR
-    "nodemon": "1.18.7"
+    "async-waterfall": "0.1.5"
   }
 }

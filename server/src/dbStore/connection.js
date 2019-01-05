@@ -8,4 +8,4 @@ mongORM.connect(DB_TYPE+DB_SERVER+DB_NAME, { useNewUrlParser: true });
 
 module.exports={
     mongORM
-}
+};

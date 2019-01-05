@@ -25,18 +25,15 @@ server.use(cookieParser());
 server.get('*', validateSession);
 
 /*Configure static files
- * Authenticate static file-serve
  * */
 server.use(express.static('../static'));
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-
 /*
  *Express-Routing  middleware
 */ 
 server.use('/user', validateSession, userControlRouter);
-
 
 /*Custom Error handler*/
 server.use((err,req,res,next) => {
