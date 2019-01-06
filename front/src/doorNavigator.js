@@ -4,6 +4,8 @@ import createHashHistory from 'history/createHashHistory';
 
 import Login from './entry/loginContainer';
 import SignUp from './entry/registrationContainer';
+import ForgotPassword from './entry/forgotPasswordContainer';
+import ResetPassword from './entry/resetPasswordContainer';
 
 const history = createHashHistory();
 export default class EntryNavigator extends Component {
@@ -14,8 +16,8 @@ export default class EntryNavigator extends Component {
    		  <Route exact path="/" render={() => (<Redirect to="/login" />)} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={SignUp} />
-          {false && <Route exact path="/forgot-password" component={ForgotPassword} />}
-          {false && <Route exact path="/reset-password" component={ResetPassword} />}
+          <Route exact path="/forgot-password" component={ForgotPassword} />
+          <Route exact path="/reset-password" component={ResetPassword} />
           {false && <Route exact path="/feedback" component={Feedback} />}
         </Switch>
       </Router>

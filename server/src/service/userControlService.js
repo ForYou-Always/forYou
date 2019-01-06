@@ -1,11 +1,9 @@
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const waterfall = require('async-waterfall');
-//const session = require('express-session');
-
 const jwt = require('jsonwebtoken');
-const { authentication } = require('../../server-properties');
 
+const { mailSender } = require('./mailingService');
+const { authentication } = require('../../server-properties');
 const { UserControlModel, UserSaltModel } = require('../dbStore/schemaModel/userSchema');
 
 const registerNewUser = async (req, res, next) => {
@@ -18,7 +16,7 @@ const resetUserPassword =  async (req, res, next) => {
   await secureAndRegisterUser(userInformation);
 }
 
-const requestForgotPassword = (req, res, next) => {
+const requestForgotPassword = async (req, res, next) => {
   const { host } = req.headers;
   const { email } = req.body;
 
@@ -28,14 +26,15 @@ const requestForgotPassword = (req, res, next) => {
       subject: 'Node.js Password Reset'
   };
 
-  generateResetToken(email, next).then(async (token) => {
-    mailOptions.text = `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n`
-      `Please click on the following link, or paste this into your browser to complete the process:\n\n`
-      `http://${host}'/user/reset-password/${token}\n\n`
-      `If you did not request this, please ignore this email and your password will remain unchanged.\n`;
+  await generateResetToken(email, next).then(async (token) => {
+    mailOptions.text = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+    'http://' + host + '/user/reset-password/' + token + '\n\n' +
+    'If you did not request this, please ignore this email and your password will remain unchanged.\n';
 
-    await mailSender(mailOptions);
+    await mailSender(mailOptions, next);
   }).catch(err => {
+    console.log('req---err---', err);
     next({ customError:`Error requesting password reset` });
   });
 }
@@ -140,9 +139,14 @@ function getHashedPassword (salt, password, iterations){
   return crypto.pbkdf2Sync(password, salt, iterations, 64, `sha512`).toString(`hex`); 
 }
 
+const signOutUser = async(res, next) => {
+  const { tokenName} = authentication;
+  res.clearCookie(tokenName).send({ msg: `Logout Success` });
+};
+
 module.exports = {
     registerNewUser,
-    registerForgotPassword,
+    requestForgotPassword,
     resetUserPassword,
     validateUser,
     signOutUser

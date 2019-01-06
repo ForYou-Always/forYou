@@ -10,7 +10,7 @@ const smtpTransport = nodemailer.createTransport({
 
 const mailSender = async (mailOptions, next) => {
   try {
-    const reponse = await smtpTransport.sendMail(mailOptions);
+    const response = await smtpTransport.sendMail(mailOptions);
     return response;
   }catch(error){
     next({ customError: `Error Sending mail` });

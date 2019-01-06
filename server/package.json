@@ -24,6 +24,7 @@
     "npm": "5.6.0"
   },
   "devDependencies": {
-    "async-waterfall": "0.1.5"
+    "async-waterfall": "0.1.5",
+    "nodemon": "1.18.7"
   }
 }

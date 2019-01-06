@@ -29,7 +29,7 @@ router.post('/register',async (req, res, next) => {
 
 router.post('/forgot-password', async (req, res, next) => {
   const responseResult=  await userControlService.requestForgotPassword(req, res, next);
-  res.send({responseResult});
+  res.send({ responseResult });
 });
 
 router.post('/reset-password', async (req, res, next) => {
