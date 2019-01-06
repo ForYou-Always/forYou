@@ -40,7 +40,7 @@ server.use((err,req,res,next) => {
   res.status(500).send(err);
 });
 
-profileScript();
+//profileScript();
 
 
 /*app-server will run on this port*/

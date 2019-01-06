@@ -8,12 +8,12 @@ const { UserControlModel, UserSaltModel } = require('../dbStore/schemaModel/user
 
 const registerNewUser = async (req, res, next) => {
   const userInformation = req.body;
-  await secureAndRegisterUser(userInformation);
+  await secureAndRegisterUser(userInformation, next);
 };
 
 const resetUserPassword =  async (req, res, next) => {
   const userInformation = req.body;
-  await secureAndRegisterUser(userInformation);
+//  await secureAndRegisterUser(userInformation, next);
 }
 
 const requestForgotPassword = async (req, res, next) => {
@@ -34,7 +34,6 @@ const requestForgotPassword = async (req, res, next) => {
 
     await mailSender(mailOptions, next);
   }).catch(err => {
-    console.log('req---err---', err);
     next({ customError:`Error requesting password reset` });
   });
 }
@@ -57,14 +56,21 @@ async function generateResetToken(mail_id, next) {
   return resetToken;
 }
 
-async function secureAndRegisterUser (userRegisterData) {
+async function secureAndRegisterUser (userRegisterData, next) {
   const { email, password, contact_no } = userRegisterData;
+  
+  const userSaltInfo = await UserSaltModel.findOne({ mail_id: email });
+  if(userSaltInfo){
+    next({ customError: `User already Exists ${email}`, userSaltInfo})
+    return;
+  }
+  
   const passLength = password.length;
 
   const randomSalt = generateRandomString(passLength);
 
   const hashedSalt = generateHashedValue (randomSalt, randomSalt);
-  const hashedPassword = generateHashedValue (password, randomSalt);
+  const hashedPassword = generateHashedValue (password, hashedSalt);
 
 
   const userControlDao = new UserControlModel({
@@ -116,11 +122,12 @@ const validateUser = async(req, res, next) => {
     return;
   }
 
-  const { salt, iterations } = userSaltInfo;
-  const passwordHash = getHashedPassword(salt, password, iterations);
-
+  const { salt } = userSaltInfo;
+  const hashedSalt = generateHashedValue (salt, salt);
+  const hashedPassword = generateHashedValue (password, hashedSalt);
+  
   const userHashInfo = await UserControlModel.findOne({ mail_id: user_name });
-  if(passwordHash !== userHashInfo.hash){
+  if(hashedPassword !== userHashInfo.hash){
     next({ customError: 'Invalid Credentials'})
     return;
   }
@@ -135,9 +142,9 @@ const authenticateUser = async(userId, res) => {
 }
 
 
-function getHashedPassword (salt, password, iterations){
+/*function getHashedPassword (salt, password, iterations){
   return crypto.pbkdf2Sync(password, salt, iterations, 64, `sha512`).toString(`hex`); 
-}
+}*/
 
 const signOutUser = async(res, next) => {
   const { tokenName} = authentication;

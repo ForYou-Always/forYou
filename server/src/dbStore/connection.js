@@ -1,5 +1,5 @@
 const mongORM = require('mongoose');
-const DB_NAME= 'for_you';
+const DB_NAME= 'for_you1';
 const DB_TYPE = 'mongodb://';
 const DB_SERVER = 'localhost:27017/';
 
