@@ -3,11 +3,14 @@ const { Schema, model } = mongORM;
 const CONSTANTS = require('./collectionConst');
 
 const userControlSchema = new Schema({
-	mail_id: String,
-	user_name: String,
-	hash: String,
-	create_date: { type: Date, default: Date.now },
-	update_date: { type: Date, default: Date.now }
+  mail_id: String,
+  user_name: String,
+  hash: String,
+  contact_no: Number,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
+  create_date: { type: Date, default: Date.now },
+  update_date: { type: Date, default: Date.now }
 });
 
 const userSaltSchema = new Schema({
