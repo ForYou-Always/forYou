@@ -8,32 +8,72 @@ const { authentication } = require('../../server-properties');
 
 const { UserControlModel, UserSaltModel } = require('../dbStore/schemaModel/userSchema');
 
-const registerNewUser = async (req, res) => {
+const registerNewUser = async (req, res, next) => {
   const userInformation = req.body;
   await secureAndRegisterUser(userInformation);
 };
 
-const resetUserPassword =  async (req, res) => {
+const resetUserPassword =  async (req, res, next) => {
   const userInformation = req.body;
   await secureAndRegisterUser(userInformation);
 }
 
-secureAndRegisterUser = async (userRegisterData) => {
+const requestForgotPassword = (req, res, next) => {
+  const { host } = req.headers;
+  const { email } = req.body;
+
+  const mailOptions = {
+      to: req.body.email,
+      from: 'foryoutest01@gmail.com',
+      subject: 'Node.js Password Reset'
+  };
+
+  generateResetToken(email, next).then(async (token) => {
+    mailOptions.text = `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n`
+      `Please click on the following link, or paste this into your browser to complete the process:\n\n`
+      `http://${host}'/user/reset-password/${token}\n\n`
+      `If you did not request this, please ignore this email and your password will remain unchanged.\n`;
+
+    await mailSender(mailOptions);
+  }).catch(err => {
+    next({ customError:`Error requesting password reset` });
+  });
+}
+
+async function generateResetToken(mail_id, next) {
+  const resetToken = crypto.randomBytes(20).toString('hex');
+
+  const userInfo = await UserControlModel.findOne({ mail_id });
+  
+  if(!userInfo){
+    next({ customError:`User Doesnot Exists` });
+    return;
+  }
+
+  userInfo.resetPasswordToken = resetToken;
+  userInfo.resetPasswordExpires = Date.now() + 3600000;
+  const userControl = new UserControlModel(userInfo);
+
+  userControl.save();
+  return resetToken;
+}
+
+async function secureAndRegisterUser (userRegisterData) {
   const { email, password, contact_no } = userRegisterData;
   const passLength = password.length;
-  
+
   const randomSalt = generateRandomString(passLength);
-  
+
   const hashedSalt = generateHashedValue (randomSalt, randomSalt);
   const hashedPassword = generateHashedValue (password, randomSalt);
-  
-  
+
+
   const userControlDao = new UserControlModel({
     mail_id: email,
     hash: hashedPassword,
     contact_no: contact_no
   });
-  
+
   const userData = await userControlDao.save();
 
   const userSaltDao = new UserSaltModel({
@@ -44,12 +84,13 @@ secureAndRegisterUser = async (userRegisterData) => {
   await userSaltDao.save();
 }
 
+
 /**
  * generates random string of characters i.e salt
  * @function
  * @param {number} length - Length of the random string.
  */
-generateRandomString = (length) => {
+function generateRandomString (length){
   return crypto.randomBytes(Math.ceil(length/2))
   .toString('hex') /** convert to hexadecimal format */
   .slice(0,length);   /** return required number of characters */
@@ -61,15 +102,10 @@ generateRandomString = (length) => {
  * @param {string} password - List of required fields.
  * @param {string} salt - Data to be validated.
  */
-generateHashedValue = (value, salt) => {
+function generateHashedValue(value, salt){
   const hashedVal = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
   hashedVal.update(value);
   return hashedVal.digest('hex'); 
-};
-
-const signOutUser = async(res, next) => {
-  const { tokenName} = authentication;
-  res.clearCookie(tokenName).send({ msg: `Logout Success` });
 };
 
 
