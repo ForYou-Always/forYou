@@ -26,18 +26,35 @@
 	height: 420px;
 }
 
-.signup-form {
+.change-password-form {
 	border: 1px solid;
-	padding-top: 46px;
-	padding-left: 0px;
-	max-width: 530px;
+	padding: 50px;
+	max-width: 340px;
 	margin: auto;
 	border-radius: 50px;
 	background: #c8c8c8;
-	height: 420px;
-	padding-right: 30px;
-	padding-bottom: 20px;
-	padding-left: 0px;
+	height: 400px;
+}
+
+
+.password-lost-form {
+	border: 1px solid;
+	padding: 30px;
+	max-width: 330px;
+	margin: auto;
+	border-radius: 20px;
+	background: #c8c8c8;
+	height: 250px;
+}
+
+.signup-form{
+	border: 1px solid;
+	padding: 45px;
+	max-width: 375px;
+	margin: auto;
+	border-radius: 50px;
+	background: #c8c8c8;
+	height: 530px;
 }
 
 .login-form-forgot {
@@ -46,4 +63,8 @@
 
 .login-form-button {
 	width: 100%;
+}
+
+.sign-up-button {
+	width: 50%;
 }

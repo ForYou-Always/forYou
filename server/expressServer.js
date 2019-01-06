@@ -25,25 +25,22 @@ server.use(cookieParser());
 server.get('*', validateSession);
 
 /*Configure static files
- * Authenticate static file-serve
  * */
 server.use(express.static('../static'));
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-
 /*
  *Express-Routing  middleware
 */ 
-server.use('/user', validateSession, userControlRouter);
-
+server.use('/user', userControlRouter);
 
 /*Custom Error handler*/
 server.use((err,req,res,next) => {
   res.status(500).send(err);
 });
 
-profileScript();
+//profileScript();
 
 
 /*app-server will run on this port*/
