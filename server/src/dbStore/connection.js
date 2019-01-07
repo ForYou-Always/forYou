@@ -1,10 +1,11 @@
 const mongORM = require('mongoose');
-const DB_NAME= 'for_you1';
-const DB_TYPE = 'mongodb://';
-const DB_SERVER = 'localhost:27017/';
+const { database } = require('../../server-properties');
+const { type, server, name, prod_server } = database;
 
-mongORM.connect(DB_TYPE+DB_SERVER+DB_NAME, { useNewUrlParser: true });
-//mongORM.connect('mongodb://Vairavan:admin1234@ds135714.mlab.com:35714/for_you', { useNewUrlParser: true });
+const formUrlPath = `${type}${server}${name}`;
+
+mongORM.connect(formUrlPath, { useNewUrlParser: true });
+//mongORM.connect(prod_server, { useNewUrlParser: true });
 
 module.exports={
     mongORM

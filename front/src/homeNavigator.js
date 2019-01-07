@@ -9,10 +9,12 @@ export default class Navigator extends Component {
   render () {
     return (
       <Router history={history}>
-        <Switch>
-   		  <Route exact path="/" render={() => (<Redirect to="/home"/>)} />
-          <Route exact path="/home" component={LayoutContainer} />
-        </Switch>
+        <LayoutContainer>
+          <Switch>
+     		    <Route exact path="/" render={() => (<Redirect to="/home"/>)} />
+            {false && <Route exact path="/home" component={LayoutContainer} />}
+          </Switch>
+        </LayoutContainer>
       </Router>
     );
   }

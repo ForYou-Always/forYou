@@ -1,10 +1,11 @@
 const express = require('express');
 const server = express();
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const CONST = require('./src/constant');
+const { port  } = require('./server-properties').app_server;
+
 const { validateSession } = require('./src/utility/authenticationFilter');
 const { profileScript } = require('./src/service/startupAsyncService');
 
@@ -20,7 +21,6 @@ server.use(function(req, res, next) {
 });
 
 server.use(cookieParser());
-//server.use(session({ secret: 'Hope this is not a good secret key. Hahaha...' }));
 
 server.get('*', validateSession);
 
@@ -44,4 +44,4 @@ server.use((err,req,res,next) => {
 
 
 /*app-server will run on this port*/
-server.listen(process.env.PORT || 2020);
+server.listen(process.env.PORT || port);
