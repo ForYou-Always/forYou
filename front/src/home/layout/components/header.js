@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout, Button, Tooltip } from 'antd';
+import { Layout, Button, Tooltip, Spin } from 'antd';
 import { logOutUser } from '../flux/layoutActions';
 import * as ACTION_TYPES from '../flux/layoutActionTypes';
 import '../../../styles/home.css';
@@ -51,8 +51,9 @@ class HeaderContainer extends Component {
 
   render() {
     const { history } = this.props;
+    const { loading } = this.state;
 
-    return (
+    return (<Spin tip="Logging in..." spinning={this.state.loading} >
       <Header className="header" style={{ padding:'0 30px' }}>
         <Button shape="circle" icon="menu-fold" onClick={this.handleSideMenuToggle} style={{ marginRight:10 }}/>          
         <span>
@@ -66,7 +67,7 @@ class HeaderContainer extends Component {
             </Tooltip>
           </div>
         </span>
-      </Header>
+      </Header></Spin>
     );
   }
 }

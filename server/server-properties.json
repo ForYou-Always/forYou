@@ -2,5 +2,14 @@
   "authentication": {
     "secret": "Hope this is not a good secret key. Hahaha...",
     "tokenName": "For_You_Token"
+  },
+  "database":{
+    "type": "mongodb://",
+    "server": "localhost:27017/",
+    "name": "for_you",
+    "prod_server": "mongodb://Vairavan:admin1234@ds135714.mlab.com:35714/for_you"
+  },
+  "app_server":{
+    "port": 2020
   }
 }
