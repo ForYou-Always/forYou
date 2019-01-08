@@ -193,4 +193,4 @@ class Signup extends Component {
 }
 
 const WrappedSignupForm = Form.create()(Signup);
-export default connect(null)(withRouter(WrappedSignupForm));
+export default withRouter(connect(null)(WrappedSignupForm));

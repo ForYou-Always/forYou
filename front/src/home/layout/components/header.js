@@ -59,8 +59,8 @@ class HeaderContainer extends Component {
         <span>
           <img src={logoImage} height="35" width="100"/>
           <div style={{ float:'right' }}>
-            <Button type="dashed" icon="notification" style={{ marginRight:10 }}/>
-            <Button type="dashed" icon="message" style={{ marginRight:10 }}/>
+            <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => history.push('/login')} />
+            <Button type="dashed" icon="message" style={{ marginRight:10 }} onClick={() => history.push('/register')} />
             <Button type="dashed" icon="bars" style={{ marginRight:10 }}/>
             <Tooltip placement="bottomRight" title="Logout">
               <Button type="dashed" icon="logout" onClick={this.handleLogout} />
@@ -72,4 +72,4 @@ class HeaderContainer extends Component {
   }
 }
 
-export default connect(null)(withRouter(HeaderContainer));
+export default withRouter(connect(null)(HeaderContainer));

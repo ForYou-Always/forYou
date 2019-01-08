@@ -43,4 +43,4 @@ class ContentBody extends Component {
   }
 }
 
-export default connect(null)(withRouter(ContentBody));
+export default withRouter(connect(null)(ContentBody));
