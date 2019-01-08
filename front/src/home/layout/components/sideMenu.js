@@ -75,4 +75,4 @@ function mapStatetoProps(state){
   }
 }
 
-export default connect(mapStatetoProps)(withRouter(SideMenu));
+export default withRouter(connect(mapStatetoProps)(SideMenu));

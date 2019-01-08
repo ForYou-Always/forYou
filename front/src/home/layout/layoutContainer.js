@@ -30,4 +30,4 @@ class LayoutContainer extends Component {
 	}
 }
 
-export default connect(null)(withRouter(LayoutContainer));
+export default withRouter(connect(null)(LayoutContainer));

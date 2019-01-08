@@ -114,4 +114,4 @@ class ResetPasswordContainer extends React.Component {
 }
 
 const WrappedResetPasswordContainer = Form.create()(ResetPasswordContainer);
-export default connect(null)(withRouter(WrappedResetPasswordContainer));
+export default withRouter(connect(null)(WrappedResetPasswordContainer));

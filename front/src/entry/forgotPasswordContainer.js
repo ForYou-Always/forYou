@@ -95,4 +95,4 @@ class ForgotPasswordContainer extends Component {
 }
 
 const WrappedForgotPasswordContainer = Form.create()(ForgotPasswordContainer);
-export default connect(null)(withRouter(WrappedForgotPasswordContainer));
+export default withRouter(connect(null)(WrappedForgotPasswordContainer));

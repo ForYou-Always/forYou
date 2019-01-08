@@ -94,4 +94,4 @@ class LoginContainer extends React.Component {
 }
 
 const WrappedLoginContainer = Form.create()(LoginContainer);
-export default connect(null)(withRouter(WrappedLoginContainer));
+export default withRouter(connect(null)(WrappedLoginContainer));
