@@ -28,7 +28,11 @@ class HeaderContainer extends Component {
     const { dispatch } = this.props;
     dispatch({
       type: ACTION_TYPES.RECEIVE_MENU_TOGGLE,
-      data: false,
+      data: false
+    });
+    dispatch({
+      type: ACTION_TYPES.RECEIVE_POST_DRAWER_TOGGLE,
+      data: false
     });
   }
   
@@ -50,7 +54,19 @@ class HeaderContainer extends Component {
     });
     this.setState({ collapsed });
   }
+  
+  handlePostDrawerToggle=()=>{
 
+    const { dispatch } = this.props;
+//    const drawer = !this.state.drawer;
+    
+    dispatch({
+      type: ACTION_TYPES.RECEIVE_POST_DRAWER_TOGGLE,
+      data: true,
+    });
+//    this.setState({ drawer });
+  }
+  
   render() {
     const { history } = this.props;
     const { loading } = this.state;
@@ -63,6 +79,7 @@ class HeaderContainer extends Component {
           <div style={{ float:'right' }}>
             <Button type="dashed" icon="environment" style={{ marginRight:10 }} onClick= {() => history.push('/location/mine')} /> 
             <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => socket.emit('serverTrigger', 'Sent an event from the client!')} />
+            <Button type="dashed" icon="plus-square" style={{ marginRight:10 }} onClick={this.handlePostDrawerToggle}/>
             <Button type="dashed" icon="message" style={{ marginRight:10 }} />
             <Button type="dashed" icon="bars" style={{ marginRight:10 }} />
             <Tooltip placement="bottomRight" title="Logout">
