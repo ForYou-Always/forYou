@@ -8,6 +8,7 @@ const { port  } = require('./server-properties').app_server;
 
 const { validateSession } = require('./src/utility/authenticationFilter');
 const { profileScript } = require('./src/service/startupAsyncService');
+const webPush = require('./src/notifications/webPush');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
 
@@ -34,6 +35,19 @@ server.use(bodyParser.json());
  *Express-Routing  middleware
 */ 
 server.use('/user', userControlRouter);
+
+server.post('/subscribe', (req, res) => {
+	const subscription = req.body;
+	res.status(201).json({});
+	const payload = JSON.stringify({ title: 'test' });
+
+	console.log(subscription);
+
+	webPush.sendNotification(subscription, payload).catch(error => {
+		console.error(error.stack);
+	});
+});
+
 
 /*Custom Error handler*/
 server.use((err,req,res,next) => {

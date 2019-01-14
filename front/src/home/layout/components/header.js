@@ -6,6 +6,7 @@ import { logOutUser } from '../flux/layoutActions';
 import * as ACTION_TYPES from '../flux/layoutActionTypes';
 import '../../../styles/home.css';
 
+import { run } from '../../../common/notifications/webPushClient';
 
 const { Header } = Layout;
 
@@ -48,6 +49,13 @@ class HeaderContainer extends Component {
     });
     this.setState({ collapsed });
   }
+  
+  allowWebPush = () => {
+	  if ('serviceWorker' in navigator) {
+		  console.log('Registering service worker');
+		  run().catch(error => console.error(error));
+	  }
+  }
 
   render() {
     const { history } = this.props;
@@ -61,7 +69,7 @@ class HeaderContainer extends Component {
           <div style={{ float:'right' }}>
             <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => history.push('/login')} />
             <Button type="dashed" icon="message" style={{ marginRight:10 }} onClick={() => history.push('/register')} />
-            <Button type="dashed" icon="bars" style={{ marginRight:10 }}/>
+            <Button type="dashed" icon="bars" style={{ marginRight:10 }} onClick={() => this.allowWebPush()} />
             <Tooltip placement="bottomRight" title="Logout">
               <Button type="dashed" icon="logout" onClick={this.handleLogout} />
             </Tooltip>
