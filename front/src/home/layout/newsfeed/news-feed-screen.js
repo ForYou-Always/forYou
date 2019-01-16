@@ -3,11 +3,33 @@ import NewsFeed from './news-feed';
 import { Layout, Avatar, Card, Row, Col, Input, Button, notification} from 'antd';
 import getData from './json-data';
 import PicturesWall from './pictures-wall';
+import { newPost } from './reduxFlow/newsfeedAction';
 const { Header, Sider, Content } = Layout;
 const { Meta } = Card;
 const TextArea = Input.TextArea;
 
 class NewsFeedScreen extends React.Component{
+    clickPostButton = async() => {
+        if(!this.refs.postTextArea.textAreaRef.value){
+            notification.error({
+                message: 'Post Message is Empty'
+            });
+            return;
+        }
+        await this.handleNewPost().catch(this.handleNewPostError);
+    }
+    handleNewPost = async() => {
+        const param = {};
+        param['description'] = this.refs.postTextArea.textAreaRef.value;
+        const status = await newPost(param, this.props.dispath);
+        console.log(status);
+    }
+
+    handleNewPostError = (error) => {
+        notification.error({
+            message: {error}
+        });
+    }
     render(){
         const data = getData();
         const userDetails = {
@@ -27,16 +49,6 @@ class NewsFeedScreen extends React.Component{
         const padding = {
             padding: '8px 8px 8px 8px'
         };
-        const clickPostButton = () => {
-            if(!this.refs.postTextArea.textAreaRef.value){
-                notification.error({
-                    message: 'Post Message is Empty'
-                });
-            } else {
-                
-            }
-        // console.log(this.refs.refPicturesWall.getFileList());
-        }
         return (
             <div>
                 <Card style={padding}>
@@ -48,7 +60,7 @@ class NewsFeedScreen extends React.Component{
                                 autosize={{ minRows: 2, maxRows: 6 }}/>}/>
                         </Col>
                         <Col span={2}>
-                            <Button type='primary' onClick={clickPostButton.bind(this)}>Post</Button>
+                            <Button type='primary' onClick={this.clickPostButton.bind(this)}>Post</Button>
                         </Col>
                     </Row>
                     <PicturesWall ref='refPicturesWall'></PicturesWall>
