@@ -1,4 +1,4 @@
-import { FETCH } from '../restApi';
+import { postReq } from '../restApi';
 const publicVapidKey = "BLl0WCuUk_v1onw7estGTyN2Fpg7KIquZVOPRcSXvRiFMoawvQBCEeCSqFChU1Yetq5jv0-W_XeSbL6zPBJ9v4A";
 
 
