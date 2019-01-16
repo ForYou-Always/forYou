@@ -10,6 +10,7 @@ const { validateSession } = require('./src/utility/authenticationFilter');
 const { profileScript } = require('./src/service/startupAsyncService');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
+const newsFeedRouter = require(CONST.NEWS_FEED_ROUTER);
 
 
 /*To allow cross-origin request from other servers*/
@@ -34,6 +35,8 @@ server.use(bodyParser.json());
  *Express-Routing  middleware
 */ 
 server.use('/user', userControlRouter);
+
+server.use('/newsFeed', newsFeedRouter);
 
 /*Custom Error handler*/
 server.use((err,req,res,next) => {
