@@ -1,14 +1,23 @@
 import React from 'react';
 import NewsFeed from './news-feed';
 import { Layout, Avatar, Card, Row, Col, Input, Button, notification} from 'antd';
-import getData from './json-data';
 import PicturesWall from './pictures-wall';
-import { newPost } from './reduxFlow/newsfeedAction';
+import { newPost, getNewsFeed } from './reduxFlow/newsfeedAction';
 const { Header, Sider, Content } = Layout;
 const { Meta } = Card;
 const TextArea = Input.TextArea;
 
 class NewsFeedScreen extends React.Component{
+    data = [];
+    state = {
+        data : this.data
+    };
+    componentDidMount(){
+        getNewsFeed().then(result=>{
+            this.data = result;
+            this.setState({data:this.data});
+        }).catch(this.handleNewsFeedError);
+    }
     clickPostButton = async() => {
         if(!this.refs.postTextArea.textAreaRef.value){
             notification.error({
@@ -16,22 +25,19 @@ class NewsFeedScreen extends React.Component{
             });
             return;
         }
-        await this.handleNewPost().catch(this.handleNewPostError);
+        await this.handleNewPost().catch(this.handleNewsFeedError);
     }
     handleNewPost = async() => {
         const param = {};
         param['description'] = this.refs.postTextArea.textAreaRef.value;
-        const status = await newPost(param, this.props.dispath);
-        console.log(status);
+        await newPost(param, this.props.dispath);
     }
-
-    handleNewPostError = (error) => {
+    handleNewsFeedError = (error) => {
         notification.error({
             message: {error}
         });
     }
     render(){
-        const data = getData();
         const userDetails = {
             loginUserDetails:{
                 id: 'praveen',
@@ -65,7 +71,7 @@ class NewsFeedScreen extends React.Component{
                     </Row>
                     <PicturesWall ref='refPicturesWall'></PicturesWall>
                 </Card>
-                {data.map((value,index) => <NewsFeed key={index} value={value}></NewsFeed>)}
+                {this.state.data.map((value,index) => <NewsFeed key={index} value={value}></NewsFeed>)}
             </div>
         )
     }

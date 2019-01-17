@@ -9,9 +9,12 @@ router.use((req,res,next) => {
 });
 
 router.post('/newPost', async (req,res,next) => {
-  console.log('newPost starts');
   await newsFeedService.newPost(req, res, next);
-  console.log('newPost starts');
+});
+
+router.post('/getNewsFeed', async (req,res,next) => {
+  const result = await newsFeedService.getNewsFeed(req, res, next);
+  res.send(result);
 });
 
 module.exports = router;

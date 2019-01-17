@@ -1,4 +1,4 @@
-const { NewsFeedModel } = require('../dbStore/schemaModel/userSchema');
+const { NewsFeedModel } = require('../dbStore/schemaModel/newsFeedSchema');
 
 const newPost = async (req, res, next) => {
   const param = req.body;
@@ -11,11 +11,15 @@ const newPost = async (req, res, next) => {
     description: param['description'],
     uploadTime: Date.now()
   });
-  const userData = await newsFeedModel.save();
-  console.log(userData);
+  await newsFeedModel.save();
+};
+
+const getNewsFeed = async (req, res, next) => {
+  const userData = await NewsFeedModel.find({});
   return userData;
 };
 
 module.exports = {
-    newPost
+    newPost,
+    getNewsFeed
 }
