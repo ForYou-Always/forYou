@@ -3,6 +3,20 @@ const { Schema, model } = mongORM;
 const CONSTANTS = require('./collectionConst');
 
 const newsFeedSchema = new Schema({
+    userDetail : Map,
+    description : String,
+    fileIds : Array,
+    comment : Array,
+    childComment : Map,
+    likedBy : Array,
+    dislikedBy : Array,
+    sharedBy : Array,
+    tagedUsers : Array,
+    uploadTime : Date,
+    modifiedTime : { type: Date, default: Date.now }
+});
+
+const newsFeedSchemaExample = new Schema({
     userDetails:{
         id: {type : String, default : ''},
         src: {type : String, default : ''},
