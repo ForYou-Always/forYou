@@ -1,6 +1,6 @@
 import React from 'react';
 import NewsFeed from './news-feed';
-import { Layout, Avatar, Card, Row, Col, Input, Button, notification} from 'antd';
+import { Layout, Avatar, Card, Row, Col, Input, Button, Drawer, notification} from 'antd';
 import PicturesWall from './pictures-wall';
 import { newPost, getNewsFeed } from './reduxFlow/newsfeedAction';
 const { Header, Sider, Content } = Layout;
@@ -10,7 +10,8 @@ const TextArea = Input.TextArea;
 class NewsFeedScreen extends React.Component{
     data = [];
     state = {
-        data : this.data
+        data : this.data,
+        postDrawerVisible: false
     };
     componentDidMount(){
         getNewsFeed().then(result=>{
@@ -37,6 +38,12 @@ class NewsFeedScreen extends React.Component{
             message: {error}
         });
     }
+    onClosePostDrawer = () => {
+        this.setState({postDrawerVisible :false});
+    }
+    showPostDrawer = () => {
+        this.setState({postDrawerVisible : true});
+    }
     render(){
         const userDetails = {
             loginUserDetails:{
@@ -57,21 +64,37 @@ class NewsFeedScreen extends React.Component{
         };
         return (
             <div>
-                <Card style={padding}>
-                    <Row type="flex" justify='start' align='middle'>
-                        <Col span={22}>
-                            <Meta style={padding}
-                                avatar={<Avatar src={userDetails.loginUserDetails.src}/>}
-                                title={<TextArea ref='postTextArea' placeholder='Whats in your mind.'
-                                autosize={{ minRows: 2, maxRows: 6 }}/>}/>
-                        </Col>
-                        <Col span={2}>
-                            <Button type='primary' onClick={this.clickPostButton.bind(this)}>Post</Button>
-                        </Col>
-                    </Row>
-                    <PicturesWall ref='refPicturesWall'></PicturesWall>
-                </Card>
-                {this.state.data.map((value,index) => <NewsFeed key={index} value={value}></NewsFeed>)}
+                <Drawer
+                title="Create a new account"
+                width={720}
+                onClose={this.onClosePostDrawer}
+                visible={this.state.postDrawerVisible}
+                style={{
+                    overflow: 'auto',
+                    height: 'calc(100% - 108px)',
+                    paddingBottom: '108px',
+                }}>
+                    <Card style={padding}>
+                        <Row type="flex" justify='start' align='middle'>
+                            <Col span={22}>
+                                <Meta style={padding}
+                                    avatar={<Avatar src={userDetails.loginUserDetails.src}/>}
+                                    title={<TextArea ref='postTextArea' placeholder='Whats in your mind.'
+                                    autosize={{ minRows: 2, maxRows: 6 }}/>}/>
+                            </Col>
+                            <Col span={2}>
+                                <Button type='primary' onClick={this.clickPostButton.bind(this)}>Post</Button>
+                            </Col>
+                        </Row>
+                        <PicturesWall ref='refPicturesWall'></PicturesWall>
+                    </Card>
+                </Drawer>
+                <div>
+                    <Button style={{float: 'right',marginTop: '-65px'}} type="primary" shape="circle" icon="plus" onClick={this.showPostDrawer}/>
+                </div>
+                <div style={{overflowY: 'scroll',height: '440px'}}>
+                    {this.state.data.map((value,index) => <NewsFeed key={index} value={value}></NewsFeed>)}
+                </div>
             </div>
         )
     }

@@ -15,7 +15,7 @@ const newPost = async (req, res, next) => {
 };
 
 const getNewsFeed = async (req, res, next) => {
-  const userData = await NewsFeedModel.find({});
+  const userData = await NewsFeedModel.find().sort({$natural:-1}).limit(50);
   return userData;
 };
 
