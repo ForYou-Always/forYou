@@ -5,6 +5,7 @@ import { Layout, Button, Tooltip, Spin } from 'antd';
 import { logOutUser } from '../flux/layoutActions';
 import * as ACTION_TYPES from '../flux/layoutActionTypes';
 import '../../../styles/home.css';
+import io from 'socket.io-client';
 
 import { run } from '../../../common/notifications/webPushClient';
 
@@ -12,6 +13,8 @@ const { Header } = Layout;
 
 const loginRedirect = "door.html#/login";
 const logoImage = "./front/src/styles/images/ForYou.jpg";
+const socket = io.connect(window.location.origin);
+
 
 class HeaderContainer extends Component {
   
@@ -28,6 +31,24 @@ class HeaderContainer extends Component {
     dispatch({
       type: ACTION_TYPES.RECEIVE_MENU_TOGGLE,
       data: false,
+    });
+//    this.__allowWebPush();
+    this.webSocketInitiator();
+  }
+  
+  webSocketInitiator(){
+    console.log('check 1', socket.connected);
+    socket.on('connect', function() {
+      console.log('check 2', socket.connected);
+    });
+    
+    socket.on('eventVairavan', data => {
+      console.log('from Server', data);
+      alert('Server Fired');
+    });
+    
+    socket.on('disconnect', function(){
+      console.log('disconnected', socket.connected);
     });
   }
   
@@ -50,7 +71,7 @@ class HeaderContainer extends Component {
     this.setState({ collapsed });
   }
   
-  allowWebPush = () => {
+  __allowWebPush = () => {
 	  if ('serviceWorker' in navigator) {
 		  console.log('Registering service worker');
 		  run().catch(error => console.error(error));
@@ -69,7 +90,7 @@ class HeaderContainer extends Component {
           <div style={{ float:'right' }}>
             <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => history.push('/login')} />
             <Button type="dashed" icon="message" style={{ marginRight:10 }} onClick={() => history.push('/register')} />
-            <Button type="dashed" icon="bars" style={{ marginRight:10 }} onClick={() => this.allowWebPush()} />
+            <Button type="dashed" icon="bars" style={{ marginRight:10 }} onClick={() => socket.emit('fromClient', 'Sent an event from the client!')} />
             <Tooltip placement="bottomRight" title="Logout">
               <Button type="dashed" icon="logout" onClick={this.handleLogout} />
             </Tooltip>

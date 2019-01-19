@@ -17,6 +17,7 @@ async function validateSession(req, res, next) {
   const iscookiesExists = !!cookies[tokenName];
 
   if(iscookiesExists){
+//    console.log('session',req.url);
     await validateToken(req, res, next);
   } else {
     await redirectDoor(req, res, next);
@@ -54,7 +55,7 @@ validateToken = async (req, res, next) => {
         next({ customError: 'Already Signed in'})
         return;
       }
-      
+//      console.log('--------------success-',req.url);
       next();
     }
   });

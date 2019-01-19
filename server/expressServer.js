@@ -16,7 +16,7 @@ const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
 /*To allow cross-origin request from other servers*/
 server.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
-//	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
@@ -48,6 +48,7 @@ server.post('/subscribe', (req, res) => {
 	});
 });
 
+//console.log(io);
 
 /*Custom Error handler*/
 server.use((err,req,res,next) => {
@@ -56,6 +57,29 @@ server.use((err,req,res,next) => {
 
 //profileScript();
 
+/*app-server will run on this port
+server.listen(process.env.PORT || port);*/
 
-/*app-server will run on this port*/
-server.listen(process.env.PORT || port);
+
+//const http = require('http');
+const httpServer = require('http').createServer(server);
+const io = require('socket.io').listen(httpServer);
+httpServer.listen(process.env.PORT || port);
+
+let userConnections=1;
+//Whenever someone connects this gets executed
+io.on('connection', function(sockServer) {
+   console.log('A user connected', userConnections);
+
+   userConnections++;
+   //Whenever someone disconnects this piece of code executed
+   sockServer.on('disconnect', function () {
+     userConnections--;
+      console.log('A user disconnected');
+   });
+   
+   sockServer.on('fromClient', data => {
+     console.log('fromClient', data);
+     io.sockets.emit('eventVairavan', 'Broadcast to all users');
+   });
+});
