@@ -9,6 +9,7 @@ const { port  } = require('./server-properties').app_server;
 const { validateSession } = require('./src/utility/authenticationFilter');
 const { profileScript } = require('./src/service/startupAsyncService');
 const webPush = require('./src/notifications/webPush');
+const socketServer = require('./src/notifications/socketServer');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
 
@@ -48,38 +49,20 @@ server.post('/subscribe', (req, res) => {
 	});
 });
 
-//console.log(io);
-
 /*Custom Error handler*/
 server.use((err,req,res,next) => {
   res.status(500).send(err);
 });
 
-//profileScript();
+const httpServer = require('http').createServer(server);
+const socketio = require('socket.io').listen(httpServer);
+socketServer(socketio);
+
 
 /*app-server will run on this port
 server.listen(process.env.PORT || port);*/
 
+//profileScript();
 
-//const http = require('http');
-const httpServer = require('http').createServer(server);
-const io = require('socket.io').listen(httpServer);
+
 httpServer.listen(process.env.PORT || port);
-
-let userConnections=1;
-//Whenever someone connects this gets executed
-io.on('connection', function(sockServer) {
-   console.log('A user connected', userConnections);
-
-   userConnections++;
-   //Whenever someone disconnects this piece of code executed
-   sockServer.on('disconnect', function () {
-     userConnections--;
-      console.log('A user disconnected');
-   });
-   
-   sockServer.on('fromClient', data => {
-     console.log('fromClient', data);
-     io.sockets.emit('eventVairavan', 'Broadcast to all users');
-   });
-});
