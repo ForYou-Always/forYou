@@ -54,7 +54,6 @@ validateToken = async (req, res, next) => {
         next({ customError: 'Already Signed in'})
         return;
       }
-      
       next();
     }
   });

@@ -3,8 +3,11 @@ import { Router , Route, Switch, Redirect } from "react-router-dom";
 import createHashHistory from 'history/createHashHistory';
 
 import LayoutContainer from './home/layout/layoutContainer';
+import { webSocketInitiator } from './common/notifications/socketClient';
 
+webSocketInitiator ();
 const history = createHashHistory();
+
 export default class Navigator extends Component {
   render () {
     return (

@@ -6,11 +6,13 @@ import { logOutUser } from '../flux/layoutActions';
 import * as ACTION_TYPES from '../flux/layoutActionTypes';
 import '../../../styles/home.css';
 
+import { socket } from '../../../common/notifications/socketClient';
 
 const { Header } = Layout;
 
 const loginRedirect = "door.html#/login";
 const logoImage = "./front/src/styles/images/ForYou.jpg";
+
 
 class HeaderContainer extends Component {
   
@@ -48,7 +50,7 @@ class HeaderContainer extends Component {
     });
     this.setState({ collapsed });
   }
-
+  
   render() {
     const { history } = this.props;
     const { loading } = this.state;
@@ -59,9 +61,9 @@ class HeaderContainer extends Component {
         <span>
           <img src={logoImage} height="35" width="100"/>
           <div style={{ float:'right' }}>
-            <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => history.push('/login')} />
-            <Button type="dashed" icon="message" style={{ marginRight:10 }} onClick={() => history.push('/register')} />
-            <Button type="dashed" icon="bars" style={{ marginRight:10 }}/>
+            <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => socket.emit('serverTrigger', 'Sent an event from the client!')} />
+            <Button type="dashed" icon="message" style={{ marginRight:10 }} />
+            <Button type="dashed" icon="bars" style={{ marginRight:10 }} />
             <Tooltip placement="bottomRight" title="Logout">
               <Button type="dashed" icon="logout" onClick={this.handleLogout} />
             </Tooltip>

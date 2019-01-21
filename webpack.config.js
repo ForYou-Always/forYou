@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const STATIC_PATH = './';
 const FRONT_END_PATH = './front/';
 const FRONT_END_SRC_PATH = './front/src/';
+const FRONT_WORKER_JS_SRC_PATH = './front/src/common/notifications/';
 
 module.exports = {
     entry: {
@@ -72,8 +73,12 @@ module.exports = {
         filename:'home.html'
      }),
      new CopyWebpackPlugin([
-       { from: FRONT_END_SRC_PATH+'styles/images/*',
+       {
+         from: FRONT_END_SRC_PATH+'styles/images/*',
          to: path.join(__dirname, 'static/'+'/front/src/styles/images/[name].[ext]')
+       },{
+         from: FRONT_WORKER_JS_SRC_PATH+'worker.js',
+         to: path.join(__dirname, 'static/'+'worker.js')
        }], {})
    ]
 }
