@@ -50,7 +50,7 @@ class HeaderContainer extends Component {
     });
     this.setState({ collapsed });
   }
-  
+
   render() {
     const { history } = this.props;
     const { loading } = this.state;
@@ -61,6 +61,7 @@ class HeaderContainer extends Component {
         <span>
           <img src={logoImage} height="35" width="100"/>
           <div style={{ float:'right' }}>
+            <Button type="dashed" icon="environment" style={{ marginRight:10 }} onClick= {() => history.push('/location/mine')} /> 
             <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => socket.emit('serverTrigger', 'Sent an event from the client!')} />
             <Button type="dashed" icon="message" style={{ marginRight:10 }} />
             <Button type="dashed" icon="bars" style={{ marginRight:10 }} />
