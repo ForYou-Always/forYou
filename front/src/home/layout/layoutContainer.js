@@ -7,11 +7,11 @@ import SideMenu from './components/sideMenu';
 import ContentBody from './components/contentBody';
 
 class LayoutContainer extends Component {
-  
+
   constructor(props){
     super(props);
   }
-  
+
 	render() {
 		const { history, children } = this.props;
 

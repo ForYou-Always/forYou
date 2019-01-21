@@ -8,7 +8,4 @@ const privateKey = "C273JJ-Tgf7wZJB6UUieZPw86cDrJB11tXVxV-tCrkA";
 
 webPush.setVapidDetails('mailto:uvvm.vairavan6@gmail.com', publicKey, privateKey);
 
-//console.log('publicKey',publicKey);
-//console.log('privateKey',privateKey);
-
 module.exports= webPush;

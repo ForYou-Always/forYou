@@ -5,8 +5,8 @@ import createHashHistory from 'history/createHashHistory';
 import LayoutContainer from './home/layout/layoutContainer';
 import { webSocketInitiator } from './common/notifications/socketClient';
 
-const history = createHashHistory();
 webSocketInitiator ();
+const history = createHashHistory();
 
 export default class Navigator extends Component {
   render () {

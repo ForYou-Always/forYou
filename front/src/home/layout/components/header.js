@@ -6,14 +6,12 @@ import { logOutUser } from '../flux/layoutActions';
 import * as ACTION_TYPES from '../flux/layoutActionTypes';
 import '../../../styles/home.css';
 
-import { run } from '../../../common/notifications/webPushClient';
 import { socket } from '../../../common/notifications/socketClient';
 
 const { Header } = Layout;
 
 const loginRedirect = "door.html#/login";
 const logoImage = "./front/src/styles/images/ForYou.jpg";
-
 
 
 class HeaderContainer extends Component {
@@ -32,7 +30,6 @@ class HeaderContainer extends Component {
       type: ACTION_TYPES.RECEIVE_MENU_TOGGLE,
       data: false,
     });
-//    this.__allowWebPush();
   }
   
   handleLogout = async () => {
@@ -54,13 +51,6 @@ class HeaderContainer extends Component {
     this.setState({ collapsed });
   }
   
-  __allowWebPush = () => {
-	  if ('serviceWorker' in navigator) {
-		  console.log('Registering service worker');
-		  run().catch(error => console.error(error));
-	  }
-  }
-
   render() {
     const { history } = this.props;
     const { loading } = this.state;
