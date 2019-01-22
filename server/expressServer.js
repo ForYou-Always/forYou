@@ -37,6 +37,8 @@ server.use(bodyParser.json());
 */ 
 server.use('/user', userControlRouter);
 
+server.use('/newsFeed', newsFeedRouter);
+
 server.post('/subscribe', (req, res) => {
 	const subscription = req.body;
 	res.status(201).json({});
