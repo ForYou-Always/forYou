@@ -12,7 +12,7 @@ const webPush = require('./src/notifications/webPush');
 const socketServer = require('./src/notifications/socketServer');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
-
+const newsFeedRouter = require(CONST.NEWS_FEED_ROUTER	);
 
 /*To allow cross-origin request from other servers*/
 server.use(function(req, res, next) {
