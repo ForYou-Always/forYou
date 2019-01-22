@@ -4,6 +4,7 @@ import createHashHistory from 'history/createHashHistory';
 
 import LayoutContainer from './home/layout/layoutContainer';
 import { webSocketInitiator } from './common/notifications/socketClient';
+import NewsFeed from './home/newsfeed/news-feed';
 
 webSocketInitiator ();
 const history = createHashHistory();
@@ -15,6 +16,7 @@ export default class Navigator extends Component {
         <LayoutContainer>
           <Switch>
      		    <Route exact path="/" render={() => (<Redirect to="/home"/>)} />
+            <Route exact path="/newsFeed" component={NewsFeed}/>
             {false && <Route exact path="/home" component={LayoutContainer} />}
           </Switch>
         </LayoutContainer>
