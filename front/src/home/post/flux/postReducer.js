@@ -1,4 +1,4 @@
-import * as ACTION_TYPES from './layoutActionTypes';
+import * as ACTION_TYPES from './postActionTypes';
 import { combineReducers } from 'redux-immutable';
 import { fromJS, List as immutableList, Map as immutableMap  } from 'immutable';
 

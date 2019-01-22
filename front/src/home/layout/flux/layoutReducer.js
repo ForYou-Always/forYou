@@ -15,7 +15,7 @@ function switchSideToggle(state = false, action){
 function switchPostDrawerToggle(state = false, action){
   switch (action.type){
     case ACTION_TYPES.RECEIVE_POST_DRAWER_TOGGLE:
-      return action.data;
+        return action.data;
       break;
     default:
       return state;

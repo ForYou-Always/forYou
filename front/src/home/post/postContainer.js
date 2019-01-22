@@ -5,9 +5,10 @@ import { withRouter } from 'react-router-dom';
 import {
   Form, Drawer, InputNumber, Switch,
   Slider, Button, Input,Upload, Icon, Checkbox,
-  Row, Col,
+  Row, Col,Badge
 } from 'antd';
-import * as ACTION_TYPES from '../layout/flux/layoutActionTypes';
+import * as ACTION_TYPES from './flux/postActionTypes.js';
+import { postRegister }  from './flux/postActions.js';
 
 class postPage extends Component {
   constructor(props){
@@ -33,13 +34,29 @@ class postPage extends Component {
     });
   };
   
-  handleSubmit = (e) => {
+  handleSubmit =async (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
+    let isValid = false;
+    this.props.form.validateFields((err) =>  isValid = !err);
+    if(!isValid){
+      return;
+    } 
+    
+    await this.postSaveFunction();
+    this.onClose();
+    
+  }
+  
+  postSaveFunction = async() =>{
+    const { form, dispatch } = this.props;
+    const param = form.getFieldsValue();
+    
+    await postRegister(param, dispatch);
+  }
+  
+  handleError = (err) => {
+    message.error(`${err.customError}`);
+    this.setState({ loading: false });
   }
 
   normFile = (e) => {
@@ -51,8 +68,14 @@ class postPage extends Component {
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form
-    const { history,drawer } = this.props;;
+    const { getFieldDecorator } = this.props.form;
+    const { history,drawer } = this.props;
+    const { TextArea } = Input;
+    let drawerView = drawer;
+    if(drawer.badgCount !==undefined){
+      let drawerView = drawer.drawerData;
+    }
+    
     const formItemLayout = {
         labelCol: { span: 6 },
         wrapperCol: { span: 14 },
@@ -78,7 +101,7 @@ class postPage extends Component {
               {...formItemLayout}
               label="InputProductsNumber"
             >
-              {getFieldDecorator('product-number', { initialValue: 1 })(
+              {getFieldDecorator('inputProductsNumber', { initialValue: 1 })(
                 <InputNumber min={1} max={20} />
               )}
               <span className="ant-form-text"> machines</span>
@@ -99,7 +122,7 @@ class postPage extends Component {
                 {...formItemLayout}
                 label="BigVehicle"
               >
-                {getFieldDecorator('vehicle', { valuePropName: 'checked' })(
+                {getFieldDecorator('bigVehicle', { valuePropName: 'checked' })(
                   <Switch />
                 )}
               </Form.Item>
@@ -108,7 +131,7 @@ class postPage extends Component {
                 {...formItemLayout}
                 label="ProductUsed"
               >
-                {getFieldDecorator('Slider')(
+                {getFieldDecorator('productUsed')(
                   <Slider marks={{
                     0: '1 Month', 20: '2 Month', 40: '3 Month', 60: '4 Month', 80: '5 Month', 100: 'Morethan 1 Year',
                   }}
@@ -120,8 +143,7 @@ class postPage extends Component {
                 {...formItemLayout}
                 label="Types of volunters"
               >
-                {getFieldDecorator("checkbox-group", {
-                  initialValue: ["A", "B"],
+                {getFieldDecorator("typeVolunters", {
                 })(
                   <Checkbox.Group style={{ width: "100%" }}>
                     <Row>
@@ -149,6 +171,14 @@ class postPage extends Component {
                   </Upload>
                 )}
               </Form.Item>
+              <Form.Item
+              label="PostDetails"
+            >
+              {getFieldDecorator("postDetails", {
+              })(
+              <TextArea rows={4}  placeholder="Please input the details about the post"/>
+              )}
+              </Form.Item>
           </Form>
           <div
             style={{
@@ -165,7 +195,7 @@ class postPage extends Component {
             <Button onClick={this.onClose} style={{ marginRight: 8 }}>
               Cancel
             </Button>
-            <Button onClick={this.onClose} type="primary">
+            <Button onClick={this.handleSubmit} type="primary">
               Submit
             </Button>
           </div>

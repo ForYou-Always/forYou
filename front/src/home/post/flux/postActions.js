@@ -1,8 +1,8 @@
-import { getReq } from '../../../common/restApi';
+import { postReq } from '../../../common/restApi';
 import { SERVER_PATH } from '../../../common/constants';
-import * as ACTION_TYPES from './layoutActionTypes';
+import * as ACTION_TYPES from './postActionTypes';
 
-export const logOutUser = async (dispatch) => {
-  dispatch({ type: ACTION_TYPES.REQUEST_LOG_OUT });
-  await getReq(`${SERVER_PATH}user/signout`);
+export const postRegister = async (param,dispatch) => {
+  dispatch({ type: ACTION_TYPES.REQUEST_POST_REGISTER });
+  await postReq(`http://localhost:2020/user/post`,param);
 }

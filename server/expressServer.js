@@ -24,7 +24,7 @@ server.use(function(req, res, next) {
 
 server.use(cookieParser());
 
-server.get('*', validateSession);
+//server.get('*', validateSession);
 
 /*Configure static files
  * */

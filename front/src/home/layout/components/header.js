@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout, Button, Tooltip, Spin } from 'antd';
+import { Layout, Button, Tooltip, Spin,Badge } from 'antd';
 import { logOutUser } from '../flux/layoutActions';
 import * as ACTION_TYPES from '../flux/layoutActionTypes';
 import '../../../styles/home.css';
@@ -79,7 +79,10 @@ class HeaderContainer extends Component {
           <div style={{ float:'right' }}>
             <Button type="dashed" icon="environment" style={{ marginRight:10 }} onClick= {() => history.push('/location/mine')} /> 
             <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => socket.emit('serverTrigger', 'Sent an event from the client!')} />
-            <Button type="dashed" icon="plus-square" style={{ marginRight:10 }} onClick={this.handlePostDrawerToggle}/>
+            <Badge count={99}>
+              <Button  onClick={this.handlePostDrawerToggle} type="dashed" icon="plus-square" style={{ marginRight:10 }}/>
+              <a href="#" className="head-example" />
+            </Badge>
             <Button type="dashed" icon="message" style={{ marginRight:10 }} />
             <Button type="dashed" icon="bars" style={{ marginRight:10 }} />
             <Tooltip placement="bottomRight" title="Logout">
