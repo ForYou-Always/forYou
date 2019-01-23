@@ -11,7 +11,7 @@ class LocationTracking extends Component {
       selectedPlace: {}
   };
 
-  onMarkerClick = (props, marker, e) =>
+  onMarkerClick = (props, marker) =>
   this.setState({
     selectedPlace: props,
     activeMarker: marker,
