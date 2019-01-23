@@ -88,9 +88,11 @@ class CurrentLocation extends Component {
 
     return React.Children.map(children, clone => {
       if (!clone) return;
+      const {map} = this;
+      const {google} = this.props;
       return React.cloneElement(clone, {
-        map: this.map,
-        google: this.props.google,
+        map,
+        google,
         mapCenter: this.state.currentLocation
       });
     });
@@ -109,9 +111,6 @@ class CurrentLocation extends Component {
   }
 }
 
-export default CurrentLocation;
-
-
 CurrentLocation.defaultProps = {
     zoom: 14,
     initialCenter: {
@@ -121,3 +120,5 @@ CurrentLocation.defaultProps = {
     centerAroundCurrentLocation: true,
     visible: true
 };
+
+export default CurrentLocation;
