@@ -13,7 +13,7 @@ class LayoutContainer extends Component {
   }
 
 	render() {
-		const { history, children,drawer } = this.props;
+		const { history, children } = this.props;
 
 		return (
 			<Layout>

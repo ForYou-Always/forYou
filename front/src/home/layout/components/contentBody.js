@@ -25,7 +25,7 @@ class ContentBody extends Component {
   }
   
   render() {
-    const { history, children } = this.props;
+    const { history, children, postResponse } = this.props;
 
     return (
       <Layout>

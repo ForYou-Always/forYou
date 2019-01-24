@@ -17,7 +17,6 @@ export default class Navigator extends Component {
         <LayoutContainer>
           <Switch>
      		    <Route exact path="/" render={() => (<Redirect to="/home"/>)} />
-            {false && <Route exact path="/home" component={LayoutContainer} />}
             <Route exact path="/post" component={PostContainer} />
             <Route exact path="/location/mine" component={LocationTracking} />
           </Switch>

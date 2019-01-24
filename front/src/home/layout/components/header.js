@@ -19,20 +19,15 @@ class HeaderContainer extends Component {
     super(props);
     this.state = {
         loading: false,
-        collapsed: false,
+        collapsed: false
     }
   }
   
   componentDidMount(){
     const { dispatch } = this.props;
-    dispatch({
-      type: ACTION_TYPES.RECEIVE_MENU_TOGGLE,
-      data: false
-    });
-    dispatch({
-      type: ACTION_TYPES.RECEIVE_POST_DRAWER_TOGGLE,
-      data: false
-    });
+    const data = false;
+    dispatch({ type: ACTION_TYPES.RECEIVE_MENU_TOGGLE, data });
+    dispatch({ type: ACTION_TYPES.RECEIVE_POST_DRAWER_TOGGLE, data });
   }
   
   handleLogout = async () => {
@@ -54,18 +49,15 @@ class HeaderContainer extends Component {
     this.setState({ collapsed });
   }
   
-  handlePostDrawerToggle=()=>{
-
+ 
+  handlePostDrawerToggle = () => {
     const { dispatch } = this.props;
-//    const drawer = !this.state.drawer;
-    
     dispatch({
       type: ACTION_TYPES.RECEIVE_POST_DRAWER_TOGGLE,
-      data: true,
+      data: true
     });
-//    this.setState({ drawer });
   }
-  
+
   render() {
     const { history } = this.props;
     const { loading } = this.state;
@@ -79,7 +71,7 @@ class HeaderContainer extends Component {
             <Button type="dashed" icon="environment" style={{ marginRight:10 }} onClick= {() => history.push('/location/mine')} /> 
             <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => socket.emit('serverTrigger', 'Sent an event from the client!')} />
             <Badge count={99}>
-              <Button  onClick={this.handlePostDrawerToggle} type="dashed" icon="plus-square" style={{ marginRight:10 }}/>
+              <Button type="dashed" icon="plus-square" onClick={this.handlePostDrawerToggle} style={{ marginRight:10 }}/>
               <a href="#" className="head-example" />
             </Badge>
             <Button type="dashed" icon="message" style={{ marginRight:10 }} />

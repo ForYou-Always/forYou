@@ -5,5 +5,5 @@ import PostReducer from './home/post/flux/postReducer';
 
 export default combineReducers({
 	layout: LayoutReducer,
-	post:PostReducer
+	post: PostReducer
 });
