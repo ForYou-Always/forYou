@@ -39,9 +39,8 @@ router.post('/reset-password', async (req, res, next) => {
 });
 
 router.post('/post', async (req, res, next) => {
-  console.log('possssssssssssssssssssssssssssst');
   const responseResult=  await postService.newPostRegister(req, res, next);
-  res.send({responseResult});
+  res.send(responseResult);
 });
 
 router.put('/update/personal-info',(req,res) => {

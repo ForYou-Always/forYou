@@ -4,11 +4,12 @@ const { PostControlModel } = require('../dbStore/schemaModel/postSchema');
 
 const newPostRegister = async (req, res, next) => {
   const postInformation = req.body;
-  await postControlSave(postInformation, next);
+  console.log('innnnnnnnnnnnnnnnnnnnnnnn');
+  const responseResult = await postControlSave(postInformation, next);
+  return responseResult;
 };
 
 const postControlSave = async(postRegisterData, next) => {
-  console.log('postRegisterDataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',postRegisterData);
   const { inputProductsNumber,
     products,
     bigVehicle,
@@ -16,7 +17,7 @@ const postControlSave = async(postRegisterData, next) => {
     typeVolunters,
     upload,
     postDetails} = postRegisterData;
-    
+
     const postControlDao = new PostControlModel ({
       InputProductsNumber:inputProductsNumber,
       Products:products,
@@ -26,7 +27,7 @@ const postControlSave = async(postRegisterData, next) => {
       Upload:upload,
       PostDetails:postDetails
     });
-    
+
 
     return await postControlDao.save();
 //  res.clearCookie(tokenName).send({ msg: `Logout Success` });
