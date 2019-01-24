@@ -22,7 +22,7 @@
            
 What will actually be in these folders?
 
-   1. *$_..container.js* -> actuall main page which you are developing.
+   1. *$_..container.js* -> actual main page which you are developing.
          Ex: List, Detail are all containers. Which will have separate url-routing path.
          
          
@@ -37,22 +37,13 @@ What will actually be in these folders?
     1. Add your *{my}Container* in homeNavigator.js with a unique url-path.         
     2. Configure your *{my}Reducer* in homeReducer.js with a suitable name.
          
-*Ajax Request*
+*Ajax Request:*
 
     1. In your actions file make your Restcall.
        a. Import the following methods from *.\forYou\front\src\common\restApi.js*
            { getReq, putReq, postReq, deleteReq, ...}
          
-*Misc*
+*Misc:*
 
     1. While exporting your container encloose it in the following way. 
            (i.e) withRouter(connect(null)(MyContainer))
-         
-         
-         
-         
-         
-         
-         
-         
-         
