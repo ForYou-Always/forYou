@@ -4,5 +4,6 @@ import * as ACTION_TYPES from './postActionTypes';
 
 export const postRegister = async (param,dispatch) => {
   dispatch({ type: ACTION_TYPES.REQUEST_POST_REGISTER });
-  await postReq(`http://localhost:2020/user/post`,param);
+  const data = await postReq(`${SERVER_PATH}user/post`,param);
+  dispatch({ type: ACTION_TYPES.RECEIVE_POST_REGISTER, data});
 }

@@ -12,9 +12,20 @@ function switchSideToggle(state = false, action){
 	}
 };
 
-const layoutReducer = combineReducers({
-  switchSideToggle
+function getPostData(state = false, action){
+  switch (action.type){
+  case ACTION_TYPES.RECEIVE_POST_REGISTER:
+    return action.data;
+    break;
+  default:
+    return state;
+  }
+};
+
+const postReducer = combineReducers({
+  switchSideToggle,
+  getPostData
 });
 
 
-export default layoutReducer;
+export default postReducer;
