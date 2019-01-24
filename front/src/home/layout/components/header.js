@@ -13,7 +13,6 @@ const { Header } = Layout;
 const loginRedirect = "door.html#/login";
 const logoImage = "./front/src/styles/images/ForYou.jpg";
 
-
 class HeaderContainer extends Component {
   
   constructor(props){
