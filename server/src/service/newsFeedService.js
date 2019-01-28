@@ -11,7 +11,8 @@ const newPost = async (req, res, next) => {
     description: param['description'],
     uploadTime: Date.now()
   });
-  await newsFeedModel.save();
+  const result = await newsFeedModel.save();
+  return result;
 };
 
 const getNewsFeed = async (req, res, next) => {
