@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Avatar, Card, Row, Col, Input, Button, Drawer, notification} from 'antd';
+import { Layout, Avatar, Card, Row, Col, Input, Button, Modal, notification} from 'antd';
 import { newPost, getNewsFeed } from './flux/newsfeedAction';
 import PostCard from './components/post-card';
 import PicturesWall from './components/pictures-wall';
@@ -31,17 +31,30 @@ class NewsFeed extends React.Component{
     handleNewPost = async() => {
         const param = {};
         param['description'] = this.refs.postTextArea.textAreaRef.value;
-        await newPost(param, this.props.dispath);
+        const value = await newPost(param, this.props.dispath);
+        if(value) {
+            this.data = [value, ...this.data];
+            this.setState({data:this.data});
+            this.refs.postTextArea.textAreaRef.value = '';
+            this.onClosePost();
+            notification.success({
+                message: 'Posted Successfully'
+            });
+        }else{
+            notification.error({
+                message: { value }
+            });
+        }
     }
     handleNewsFeedError = (error) => {
         notification.error({
             message: {error}
         });
     }
-    onClosePostDrawer = () => {
+    onClosePost = () => {
         this.setState({postDrawerVisible :false});
     }
-    showPostDrawer = () => {
+    showAddPost = () => {
         this.setState({postDrawerVisible : true});
     }
     render(){
@@ -64,33 +77,23 @@ class NewsFeed extends React.Component{
         };
         return (
             <div>
-                <Drawer
+                <Modal
                 title="Create a new account"
-                width={720}
-                onClose={this.onClosePostDrawer}
                 visible={this.state.postDrawerVisible}
-                style={{
-                    overflow: 'auto',
-                    height: 'calc(100% - 108px)',
-                    paddingBottom: '108px',
-                }}>
+                onOk={this.clickPostButton.bind(this)}
+                onCancel={this.onClosePost}>
                     <Card style={padding}>
                         <Row type="flex" justify='start' align='middle'>
-                            <Col span={22}>
-                                <Meta style={padding}
-                                    avatar={<Avatar src={userDetails.loginUserDetails.src}/>}
-                                    title={<TextArea ref='postTextArea' placeholder='Whats in your mind.'
-                                    autosize={{ minRows: 2, maxRows: 6 }}/>}/>
-                            </Col>
-                            <Col span={2}>
-                                <Button type='primary' onClick={this.clickPostButton.bind(this)}>Post</Button>
-                            </Col>
+                            <Meta style={padding}
+                                avatar={<Avatar src={userDetails.loginUserDetails.src}/>}
+                                title={<TextArea ref='postTextArea' placeholder='Whats in your mind.'
+                                autosize={{ minRows: 2, maxRows: 6 }}/>}/>
                         </Row>
                         <PicturesWall ref='refPicturesWall'></PicturesWall>
                     </Card>
-                </Drawer>
+                </Modal>
                 <div>
-                    <Button style={{float: 'right',marginTop: '-65px'}} type="primary" shape="circle" icon="plus" onClick={this.showPostDrawer}/>
+                    <Button style={{float: 'right',marginTop: '-65px'}} type="primary" shape="circle" icon="plus" onClick={this.showAddPost}/>
                 </div>
                 <div style={{overflowY: 'scroll',height: '440px'}}>
                     {this.state.data.map((value,index) => <PostCard key={index} value={value}></PostCard>)}
