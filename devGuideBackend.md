@@ -34,4 +34,9 @@
 *Backend Postman: && Best Practice:*
 
     1. Utilize postman for developing backend independently.
+    
+    Note: while using postman for testing backend please comment 
+    -> server.get('*', validateSession); in the expressServer.js
+    
+    For avoiding the token validation.
 
