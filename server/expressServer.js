@@ -12,7 +12,7 @@ const webPush = require('./src/notifications/webPush');
 const socketServer = require('./src/notifications/socketServer');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
-
+const newsFeedRouter = require(CONST.NEWS_FEED_ROUTER	);
 
 /*To allow cross-origin request from other servers*/
 server.use(function(req, res, next) {
@@ -36,6 +36,8 @@ server.use(bodyParser.json());
  *Express-Routing  middleware
 */ 
 server.use('/user', userControlRouter);
+
+server.use('/newsFeed', newsFeedRouter);
 
 server.post('/subscribe', (req, res) => {
 	const subscription = req.body;
