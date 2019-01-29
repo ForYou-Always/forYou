@@ -1,12 +1,40 @@
 const crypto = require('crypto');
 const { UserControlModel, UserSaltModel } = require('../dbStore/schemaModel/userSchema');
+const { RoleModel, UserRoleModel} = require('../dbStore/schemaModel/roleSchema');
 const profiles = require('../startupScripts/legacyProfiles');
+const roleList = require('../startupScripts/roleData');
 
 const profileScript = async () =>{
   profiles.forEach(async (mail_id) => {
     await secureUserProfile(mail_id, mail_id);
   });
 };
+
+const addRoleInfo = async () =>{
+  roleList.forEach(async (role) => {
+    await addUserRoles(role);
+  });
+};
+
+async function addUserRoles (role) {
+  const roleExists = await checkRoleExists(role);
+  if(roleExists) {
+    return;
+  }
+  
+  const data = {
+      role,
+      create_date: new Date()
+  }
+  const roleDto = new RoleModel(data);
+  await roleDto.save();
+}
+
+async function checkRoleExists(role){
+  const roleInfo = await RoleModel.findOne({ role });
+  return !!roleInfo;
+}
+
 
 async function secureUserProfile (mail_id, password) {
   const userExists = await checkUserExists(mail_id);
@@ -51,5 +79,6 @@ async function checkUserExists(mail_id){
 }
 
 module.exports ={
-    profileScript
+    profileScript,
+    addRoleInfo
 }
