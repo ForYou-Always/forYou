@@ -43,6 +43,11 @@ router.post('/post', async (req, res, next) => {
   res.send(responseResult);
 });
 
+router.get('/post', async (req, res, next) => {
+  const responseResult=  await postService.getDeliveredPost();
+  res.send(responseResult);
+});
+
 router.put('/update/personal-info',(req,res) => {
 
 });

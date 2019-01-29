@@ -4,7 +4,6 @@ const { PostControlModel } = require('../dbStore/schemaModel/postSchema');
 
 const newPostRegister = async (req, res, next) => {
   const postInformation = req.body;
-  console.log('innnnnnnnnnnnnnnnnnnnnnnn');
   const responseResult = await postControlSave(postInformation, next);
   return responseResult;
 };
@@ -33,6 +32,12 @@ const postControlSave = async(postRegisterData, next) => {
 //  res.clearCookie(tokenName).send({ msg: `Logout Success` });
 };
 
+const getDeliveredPost = async() => {
+  const deliveredPostData = await PostControlModel.find();
+  return deliveredPostData;
+}
+
 module.exports = {
-    newPostRegister
+    newPostRegister,
+    getDeliveredPost
 }
