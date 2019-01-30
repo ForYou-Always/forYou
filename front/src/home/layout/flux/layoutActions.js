@@ -6,3 +6,9 @@ export const logOutUser = async (dispatch) => {
   dispatch({ type: ACTION_TYPES.REQUEST_LOG_OUT });
   await getReq(`${SERVER_PATH}user/signout`);
 }
+
+export const deliveredPostDetails = async (dispatch) => {
+  dispatch({ type: ACTION_TYPES.REQUEST_DELIVERED_POST });
+  const data = await getReq(`${SERVER_PATH}user/post`);
+  dispatch({ type: ACTION_TYPES.RECEIVE_DELIVERED_POST_REGISTER, data});
+  }

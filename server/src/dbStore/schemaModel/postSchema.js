@@ -9,6 +9,7 @@ const postControlSchema = new Schema({
   ProductUsed: String,
   Typesofvolunters: String,
   PostDetails:String,
+  Status:String,
   create_date: { type: Date, default: Date.now },
   update_date: { type: Date, default: Date.now }
 });

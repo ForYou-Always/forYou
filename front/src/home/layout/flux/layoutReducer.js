@@ -20,9 +20,19 @@ function switchPostDrawerToggle(state = false, action){
     }
 }
 
+function putDeliveredPost(state = false, action){
+  switch (action.type){
+    case ACTION_TYPES.RECEIVE_DELIVERED_POST_REGISTER:
+        return action.data;
+    default:
+      return state;
+    }
+}
+
 const layoutReducer = combineReducers({
   switchSideToggle,
-  switchPostDrawerToggle
+  switchPostDrawerToggle,
+  putDeliveredPost
 });
 
 

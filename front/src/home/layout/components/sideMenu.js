@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, Modal, Button, Avatar, Skeleton, List, Tag } from 'antd';
 import '../../../styles/home.css';
+import { deliveredPostDetails }  from '../flux/layoutActions.js';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -19,19 +20,93 @@ const styles={
     },
     subMenuIcon:{
       fontSize: 25 
-    }
+    },
 }
+
+const gridStyle = {
+  width: '25%',
+  textAlign: 'center',
+};
 
 class SideMenu extends Component {
   
   constructor(props){
     super(props);
+    this.state = {
+        visible: false,
+        confirmLoading: false,
+        list: [],
+        }
+  }
+  
+  componentDidMount = async() => {
+    await this.getDeliveredPost().catch(this.handleError);
+  }
+  
+  getDeliveredPost = async() => {
+    const { dispatch } = this.props;
+    await deliveredPostDetails(dispatch);
+  }
+  
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+
+  handleOk = () => {
+    this.setState({
+      ModalText: 'The modal will be closed after two seconds',
+      confirmLoading: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        confirmLoading: false,
+      });
+    }, 2000);
+  }
+
+  handleCancel = () => {
+    console.log('Clicked cancel button');
+    this.setState({
+      visible: false,
+    });
   }
   
   render() {
-    const { history, collapsed } = this.props;
-
+    const { history, collapsed, postResponse, deliveredPost} = this.props;
+    const {  ModalText, visible, confirmLoading} = this.state;
+    
+    const { initLoading, loading, list } = this.state;
     return (
+        
+     <div>
+      <Modal
+        title="Delivered Post"
+        visible={visible}
+        onOk={this.handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={this.handleCancel}
+      >
+      <List
+      itemLayout="horizontal"
+      dataSource={deliveredPost}
+      renderItem={post => (
+        <List.Item actions={[<a>View</a>, <a>Remove</a>]}>
+        <List.Item actions={[<Tag color="#f50">Delivered</Tag>]}>
+        <List.Item>
+          <List.Item.Meta
+            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+              title={<a href="https://ant.design">forU NGO</a>}
+            description={<p>{post.InputProductsNumber} Product(s) have been delivered </p>}
+          />
+        </List.Item>
+        </List.Item>
+        </List.Item>
+      )}
+          />
+      </Modal>
       <Sider
           width={200}
           collapsible
@@ -63,15 +138,24 @@ class SideMenu extends Component {
             <Menu.Item key="10">Govt. Links</Menu.Item>
             <Menu.Item key="11">Official</Menu.Item>
           </SubMenu>
+          <SubMenu key="Post Details" title={<span>
+          <Icon type="shopping-cart" style={styles.subMenuIcon} /><span>Post Details</span></span>}>
+            <Menu.Item key="12" onClick={this.showModal}>Delivered Post</Menu.Item>
+            <Menu.Item key="13">Current Post</Menu.Item>
+          </SubMenu>
         </Menu>
       </Sider>
+      </div>
     );
   }
 }
 
 function mapStatetoProps(state){
   return{
-    collapsed: state.get('layout').get('switchSideToggle')
+    collapsed: state.get('layout').get('switchSideToggle'),
+    deliveredPost: state.get('layout').get('putDeliveredPost'),
+    postResponse: state.get('post').get('getPostData')
+    
   }
 }
 
