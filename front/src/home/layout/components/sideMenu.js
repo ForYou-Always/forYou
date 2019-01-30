@@ -105,7 +105,7 @@ class SideMenu extends Component {
         </List.Item>
         </List.Item>
       )}
-          />
+      />
       </Modal>
       <Sider
           width={200}
@@ -155,7 +155,6 @@ function mapStatetoProps(state){
     collapsed: state.get('layout').get('switchSideToggle'),
     deliveredPost: state.get('layout').get('putDeliveredPost'),
     postResponse: state.get('post').get('getPostData')
-    
   }
 }
 

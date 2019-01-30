@@ -22,7 +22,7 @@ function switchPostDrawerToggle(state = false, action){
 
 function putDeliveredPost(state = false, action){
   switch (action.type){
-    case ACTION_TYPES.RECEIVE_DELIVERED_POST_REGISTER:
+    case ACTION_TYPES.RECEIVE_DELIVERED_POST:
         return action.data;
     default:
       return state;
