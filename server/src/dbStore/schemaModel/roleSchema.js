@@ -10,7 +10,7 @@ const roleSchema = new Schema({
 
 const userRoleSchema = new Schema({
   mail_id: String,
-  role: String,
+  role: Array,
   create_date: { type: Date },
   update_date: { type: Date, default: Date.now }
 });

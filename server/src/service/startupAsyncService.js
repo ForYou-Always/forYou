@@ -3,6 +3,7 @@ const { UserControlModel, UserSaltModel } = require('../dbStore/schemaModel/user
 const { RoleModel, UserRoleModel} = require('../dbStore/schemaModel/roleSchema');
 const profiles = require('../startupScripts/legacyProfiles');
 const roleList = require('../startupScripts/roleData');
+const userRoleList = require('../startupScripts/userRoleData');
 
 const profileScript = async () =>{
   profiles.forEach(async (mail_id) => {
@@ -10,18 +11,18 @@ const profileScript = async () =>{
   });
 };
 
-const addRoleInfo = async () =>{
+const addRoleInfo = async () => {
   roleList.forEach(async (role) => {
-    await addUserRoles(role);
+    await addRoles(role);
   });
 };
 
-async function addUserRoles (role) {
+async function addRoles (role) {
   const roleExists = await checkRoleExists(role);
   if(roleExists) {
     return;
   }
-  
+
   const data = {
       role,
       create_date: new Date()
@@ -35,6 +36,27 @@ async function checkRoleExists(role){
   return !!roleInfo;
 }
 
+const addUserRoleInfo = async () => {
+  userRoleList.forEach(async (userInfo) => {
+    await addUserRoles(userInfo);
+  });
+};
+
+async function addUserRoles (userInfo) {
+  const { mail_id, role } = userInfo;
+  const userExists = await UserSaltModel.findOne({ mail_id })
+  if(userExists) {
+    return;
+  }
+
+  const data = {
+      mail_id,
+      role,
+      create_date: new Date()
+  }
+  const userRoleDto = new UserRoleModel(data);
+  await userRoleDto.save();
+}
 
 async function secureUserProfile (mail_id, password) {
   const userExists = await checkUserExists(mail_id);
@@ -45,7 +67,7 @@ async function secureUserProfile (mail_id, password) {
   const iterations = 10;
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = getHashedPassword(salt, password, iterations);
-  
+
   const userControlModel = new UserControlModel({
     mail_id,
     user_name: mail_id,
