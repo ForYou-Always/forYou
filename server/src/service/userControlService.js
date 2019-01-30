@@ -30,11 +30,9 @@ const registerUserProfile =  async (req, res, next) => {
     ngo_or_normal_user: ngo_or_normal_user
   });
   const userProfileExist = await UserProfileModel.findOne({ mail_id: mail_id });
-  console.log(userProfileExist);
   if(!userProfileExist){
-  result = await userProfileDao.save();
+    result = await userProfileDao.save();
   }
-  console.log(result);
 }
 
 const updateUserProfile = async (req, res, next) => {
