@@ -9,24 +9,8 @@ const newPostRegister = async (req, res, next) => {
 };
 
 const postControlSave = async(postRegisterData, next) => {
-  const { inputProductsNumber,
-    products,
-    bigVehicle,
-    productUsed,
-    typeVolunters,
-    upload,
-    postDetails} = postRegisterData;
 
-    const postControlDao = new PostControlModel ({
-      InputProductsNumber:inputProductsNumber,
-      Products:products,
-      BigVehicle:bigVehicle,
-      ProductUsed:productUsed,
-      Typesofvolunters:typeVolunters,
-      Upload:upload,
-      PostDetails:postDetails
-    });
-
+    const postControlDao = new PostControlModel (postRegisterData);
 
     return await postControlDao.save();
 //  res.clearCookie(tokenName).send({ msg: `Logout Success` });

@@ -49,6 +49,7 @@ class SideMenu extends Component {
   }
   
   showModal = () => {
+    this.getDeliveredPost().catch(this.handleError);
     this.setState({
       visible: true,
     });
@@ -99,7 +100,7 @@ class SideMenu extends Component {
           <List.Item.Meta
             avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
               title={<a href="https://ant.design">forU NGO</a>}
-            description={<p>{post.InputProductsNumber} Product(s) have been delivered </p>}
+            description={<p>{post.inputProductsNumber} Product(s) have been delivered </p>}
           />
         </List.Item>
         </List.Item>

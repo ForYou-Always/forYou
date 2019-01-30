@@ -3,13 +3,13 @@ const { Schema, model } = mongORM;
 const CONSTANTS = require('./collectionConst');
 
 const postControlSchema = new Schema({
-  InputProductsNumber: Number,
-  Products: String,
-  BigVehicle: String,
-  ProductUsed: String,
-  Typesofvolunters: String,
-  PostDetails:String,
-  Status:String,
+  inputProductsNumber: Number,
+  products: String,
+  bigVehicle: String,
+  productUsed: String,
+  typesVolunters: String,
+  postDetails:String,
+  status:String,
   create_date: { type: Date, default: Date.now },
   update_date: { type: Date, default: Date.now }
 });
