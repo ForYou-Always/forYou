@@ -17,7 +17,7 @@ const resetUserPassword =  async (req, res, next) => {
 }
 
 const registerUserProfile =  async (req, res, next) => {
-  const { mail_id, name, date_of_birth,current_living_city,photo,govt_proof_type,govt_proof_id } = req.body;
+  const { mail_id, name, date_of_birth,current_living_city,photo,govt_proof_type,govt_proof_id,ngo_or_normal_user } = req.body;
   let result ;
   const userProfileDao = new UserProfileModel({
     mail_id: mail_id,
@@ -26,9 +26,14 @@ const registerUserProfile =  async (req, res, next) => {
     current_living_city: current_living_city,
     photo: photo,
     govt_proof_type: govt_proof_type,
-    govt_proof_id: govt_proof_id
+    govt_proof_id: govt_proof_id,
+    ngo_or_normal_user: ngo_or_normal_user
   });
+  const userProfileExist = await UserProfileModel.findOne({ mail_id: mail_id });
+  console.log(userProfileExist);
+  if(!userProfileExist){
   result = await userProfileDao.save();
+  }
   console.log(result);
 }
 
