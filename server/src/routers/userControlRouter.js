@@ -26,6 +26,20 @@ router.post('/register',async (req, res, next) => {
   res.send({responseResult});
 });
 
+router.post('/user-profile',async (req, res, next) => {
+  const responseResult= await userControlService.registerUserProfile(req, res, next);
+  res.send({responseResult});
+});
+
+router.put('/user-profile-update',async (req, res, next) => {
+  const responseResult= await userControlService.updateUserProfile(req, res, next);
+  res.send({responseResult});
+});
+
+router.delete('/user-profile-delete',async (req, res, next) => {
+  const responseResult= await userControlService.deleteUserProfile(req, res, next);
+  res.send({responseResult});
+});
 
 router.post('/forgot-password', async (req, res, next) => {
   const responseResult=  await userControlService.requestForgotPassword(req, res, next);
