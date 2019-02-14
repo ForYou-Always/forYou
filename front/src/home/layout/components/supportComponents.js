@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Form, Drawer, InputNumber, Switch, Slider } from 'antd';
 import { Button, Input, Upload, Icon, Checkbox, Row, Col,Badge } from 'antd';
-import * as ACTION_TYPES from '../layout/flux/layoutActionTypes.js';
-import { postRegister }  from './flux/postActions.js';
+import * as ACTION_TYPES from '../flux/layoutActionTypes.js';
+//import { postRegister }  from '.././post/flux/postActions.js';
 
 const { TextArea } = Input;
 const formItemLayout = {
@@ -12,7 +12,7 @@ const formItemLayout = {
     wrapperCol: { span: 14 },
 };
 
-class PostPage extends Component {
+class supportComponents extends Component {
   constructor(props){
     super(props);
   }
@@ -55,8 +55,57 @@ class PostPage extends Component {
     }
     return e && e.fileList;
   }
+  
+  handleCancel = () => {
+    console.log('Clicked cancel button');
+    const { dispatch } = this.props;
+    dispatch({ type: ACTION_TYPES.RECEIVE_DELIVERED_POST, data:[] });
+    this.setState({
+      visible: false,
+    });
+  }
+  
+  handleOk = () => {
+    this.setState({
+      ModalText: 'The modal will be closed after two seconds',
+      confirmLoading: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        confirmLoading: false,
+      });
+    }, 2000);
+  }
+  
+  getDeliveredPost = async(param) => {
+    const { dispatch } = this.props;
+    await deliveredPostDetails(param, dispatch);
+  }
+  
+  showCurrentModal = () => {
+    const param = {
+        status: 'Available'
+    }
+    this.getDeliveredPost(param).catch(this.handleError);
+    this.setState({
+      visible: true,
+    });
+  }
+  
+  showDeliveredModal = () => {
+    const param = {
+        status: 'Delivered'
+    }
+    this.getDeliveredPost(param).catch(this.handleError);
+    this.setState({
+      visible: true,
+    });
+  }
+
 
   render() {
+    const {  visible, confirmLoading} = this.state;
     const { form, history, drawer } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -160,6 +209,33 @@ class PostPage extends Component {
               </Button>
             </div>
           </Drawer>
+          
+          {visible && <Modal
+            title="Delivered Post"
+            visible={visible}
+            onOk={this.handleOk}
+            confirmLoading={confirmLoading}
+            onCancel={this.handleCancel}
+          >
+          <List
+          itemLayout="horizontal"
+          dataSource={deliveredPost}
+          renderItem={post => (
+            <List.Item actions={[<a>View</a>, <a>Remove</a>]}>
+            <List.Item actions={[<Tag color="#f50">Delivered</Tag>]}>
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                  title={<a href="https://ant.design">forU NGO</a>}
+                description={<p>{post.inputProductsNumber} Product(s) have been delivered </p>}
+              />
+            </List.Item>
+            </List.Item>
+            </List.Item>
+          )}
+          />
+          </Modal>}
+          
         </div>
     );
   }
@@ -171,5 +247,5 @@ function mapStatetoProps(state){
   }
 }
 
-const WrappedPostForm = Form.create()(PostPage);
+const WrappedPostForm = Form.create()(supportComponents);
 export default connect(mapStatetoProps)(withRouter(WrappedPostForm));

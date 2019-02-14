@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Layout, Menu, Icon, Modal, Button, Avatar, Skeleton, List, Tag } from 'antd';
 import '../../../styles/home.css';
 import { deliveredPostDetails }  from '../flux/layoutActions.js';
+import * as ACTION_TYPES from '../flux/layoutActionTypes';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -39,17 +40,26 @@ class SideMenu extends Component {
         }
   }
   
-  componentDidMount = async() => {
-    await this.getDeliveredPost().catch(this.handleError);
-  }
-  
-  getDeliveredPost = async() => {
+  getDeliveredPost = async(param) => {
     const { dispatch } = this.props;
-    await deliveredPostDetails(dispatch);
+    await deliveredPostDetails(param, dispatch);
   }
   
-  showModal = () => {
-    this.getDeliveredPost().catch(this.handleError);
+  showDeliveredModal = () => {
+    const param = {
+        status: 'Delivered'
+    }
+    this.getDeliveredPost(param).catch(this.handleError);
+    this.setState({
+      visible: true,
+    });
+  }
+  
+  showCurrentModal = () => {
+    const param = {
+        status: 'Available'
+    }
+    this.getDeliveredPost(param).catch(this.handleError);
     this.setState({
       visible: true,
     });
@@ -70,6 +80,8 @@ class SideMenu extends Component {
 
   handleCancel = () => {
     console.log('Clicked cancel button');
+    const { dispatch } = this.props;
+    dispatch({ type: ACTION_TYPES.RECEIVE_DELIVERED_POST, data:[] });
     this.setState({
       visible: false,
     });
@@ -83,7 +95,7 @@ class SideMenu extends Component {
     return (
         
      <div>
-      <Modal
+      {visible && <Modal
         title="Delivered Post"
         visible={visible}
         onOk={this.handleOk}
@@ -107,7 +119,7 @@ class SideMenu extends Component {
         </List.Item>
       )}
       />
-      </Modal>
+      </Modal>}
       <Sider
           width={200}
           collapsible
@@ -141,8 +153,8 @@ class SideMenu extends Component {
           </SubMenu>
           <SubMenu key="Post Details" title={<span>
           <Icon type="shopping-cart" style={styles.subMenuIcon} /><span>Post Details</span></span>}>
-            <Menu.Item key="12" onClick={this.showModal}>Delivered Post</Menu.Item>
-            <Menu.Item key="13">Current Post</Menu.Item>
+            <Menu.Item key="12" onClick={this.showDeliveredModal}>Delivered Post</Menu.Item>
+            <Menu.Item key="13" onClick={this.showCurrentModal}>Current Post</Menu.Item>
           </SubMenu>
         </Menu>
       </Sider>

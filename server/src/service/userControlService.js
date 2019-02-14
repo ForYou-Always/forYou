@@ -76,7 +76,8 @@ async function secureAndRegisterUser (userRegisterData, next) {
   const userControlDao = new UserControlModel({
     mail_id: email,
     hash: hashedPassword,
-    contact_no: contact_no
+    contact_no: contact_no,
+    role: 'Ngo'
   });
 
   const userData = await userControlDao.save();
