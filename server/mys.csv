@@ -1,0 +1,3 @@
+Team,DevelopmentStatus,Exe,Tracker,Status,PatternId,Subject,StartDate,EndDate,StartDate ,EndDate,Status,StartDate,EndDate,Status
+A,,1000,Task,In-progress,A,UI/UX-CalcProcessDpr,14/02/19,20/02/19,In-progress,14/02/19,20/02/19,In-progress,14/02/19,20/02/19,In-progress
+C,,1001,Analysis,Resolved,B,Analysis-BdrRequestDpr,20/02/19,28/02/19,Resolved,14/02/19,20/02/19,In-progress,20/02/19,28/02/19,Resolved
