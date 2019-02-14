@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb, Icon } from 'antd';
+import  SupportComponents  from './supportComponents.js'
 
 const { Content } = Layout;
 
@@ -25,7 +26,7 @@ class ContentBody extends Component {
   
   render() {
     const { history, children } = this.props;
-
+    
     return (
       <Layout>
         <Layout style={styles.layout}>
@@ -37,6 +38,7 @@ class ContentBody extends Component {
           <Content style={styles.body} >
             {children}
           </Content>
+          <SupportComponents />
         </Layout>
       </Layout>
     );

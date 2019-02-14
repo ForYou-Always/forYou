@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userControlService = require('../service/userControlService');
+const postService = require('../service/postService');
 
 /*log to register the incoming request*/
 router.use((req,res,next) => {
@@ -35,6 +36,16 @@ router.post('/forgot-password', async (req, res, next) => {
 router.post('/reset-password', async (req, res, next) => {
   const responseResult=  await userControlService.resetUserPassword(req, res, next);
   res.send({responseResult});
+});
+
+router.post('/post', async (req, res, next) => {
+  const responseResult=  await postService.newPostRegister(req, res, next);
+  res.send(responseResult);
+});
+
+router.get('/post', async (req, res, next) => {
+  const responseResult=  await postService.getDeliveredPost();
+  res.send(responseResult);
 });
 
 router.put('/update/personal-info',(req,res) => {

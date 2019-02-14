@@ -5,6 +5,7 @@ import createHashHistory from 'history/createHashHistory';
 import LayoutContainer from './home/layout/layoutContainer';
 import { webSocketInitiator } from './common/notifications/socketClient';
 import LocationTracking from './locationtracking/locationTracking';
+import PostContainer from './home/post/postContainer.js';
 
 webSocketInitiator ();
 const history = createHashHistory();
@@ -16,7 +17,7 @@ export default class Navigator extends Component {
         <LayoutContainer>
           <Switch>
      		    <Route exact path="/" render={() => (<Redirect to="/home"/>)} />
-            {false && <Route exact path="/home" component={LayoutContainer} />}
+            <Route exact path="/home" component={PostContainer} />
             <Route exact path="/location/mine" component={LocationTracking} />
           </Switch>
         </LayoutContainer>

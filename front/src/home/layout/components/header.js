@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Layout, Button, Tooltip, Spin } from 'antd';
+import { Layout, Button, Tooltip, Spin,Badge } from 'antd';
 import { logOutUser } from '../flux/layoutActions';
 import * as ACTION_TYPES from '../flux/layoutActionTypes';
 import '../../../styles/home.css';
@@ -13,23 +13,21 @@ const { Header } = Layout;
 const loginRedirect = "door.html#/login";
 const logoImage = "./front/src/styles/images/ForYou.jpg";
 
-
 class HeaderContainer extends Component {
   
   constructor(props){
     super(props);
     this.state = {
         loading: false,
-        collapsed: false,
+        collapsed: false
     }
   }
   
   componentDidMount(){
     const { dispatch } = this.props;
-    dispatch({
-      type: ACTION_TYPES.RECEIVE_MENU_TOGGLE,
-      data: false,
-    });
+    const data = false;
+    dispatch({ type: ACTION_TYPES.RECEIVE_MENU_TOGGLE, data });
+    dispatch({ type: ACTION_TYPES.RECEIVE_POST_DRAWER_TOGGLE, data });
   }
   
   handleLogout = async () => {
@@ -50,6 +48,15 @@ class HeaderContainer extends Component {
     });
     this.setState({ collapsed });
   }
+  
+ 
+  handlePostDrawerToggle = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: ACTION_TYPES.RECEIVE_POST_DRAWER_TOGGLE,
+      data: true
+    });
+  }
 
   render() {
     const { history } = this.props;
@@ -63,6 +70,10 @@ class HeaderContainer extends Component {
           <div style={{ float:'right' }}>
             <Button type="dashed" icon="environment" style={{ marginRight:10 }} onClick= {() => history.push('/location/mine')} /> 
             <Button type="dashed" icon="notification" style={{ marginRight:10 }} onClick={() => socket.emit('serverTrigger', 'Sent an event from the client!')} />
+            <Badge count={99}>
+              <Button type="dashed" icon="plus-square" onClick={this.handlePostDrawerToggle} style={{ marginRight:10 }}/>
+              <a href="#" className="head-example" />
+            </Badge>
             <Button type="dashed" icon="message" style={{ marginRight:10 }} />
             <Button type="dashed" icon="bars" style={{ marginRight:10 }} />
             <Tooltip placement="bottomRight" title="Logout">
