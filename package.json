@@ -23,12 +23,10 @@
     "react-router": "4.3.1",
     "redux": "4.0.1",
     "redux-immutable": "4.0.0",
-    "reqwest": "^2.0.5",
-    "socket.io-client": "2.2.0",
     "style-loader": "0.23.1",
     "webpack": "4.26.1",
     "webpack-cli": "3.1.2",
-    "xlsx": "^0.14.1"
+    "socket.io-client": "2.2.0"
   },
   "engines": {
     "node": "8.11.2",

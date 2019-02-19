@@ -13,8 +13,8 @@ router.post('/newPost', async (req, res, next) => {
   res.send(responseResult);
 });
 
-router.put('/newPost', async (req, res, next) => {
-  const responseResult=  await postService.getDeliveredPost(req.body);
+router.get('/newPost', async (req, res, next) => {
+  const responseResult=  await postService.getDeliveredPost();
   res.send(responseResult);
 });
 

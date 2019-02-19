@@ -13,13 +13,11 @@ const postControlSave = async(postRegisterData, next) => {
     const postControlDao = new PostControlModel (postRegisterData);
 
     return await postControlDao.save();
+//  res.clearCookie(tokenName).send({ msg: `Logout Success` });
 };
 
-const getDeliveredPost = async(postPutData) => {
-  console.log('postPutData',postPutData.status);
-  const deliveredPostData = await PostControlModel.find({ status : postPutData.status });
-  
-  console.log(deliveredPostData.length)
+const getDeliveredPost = async() => {
+  const deliveredPostData = await PostControlModel.find();
   return deliveredPostData;
 }
 

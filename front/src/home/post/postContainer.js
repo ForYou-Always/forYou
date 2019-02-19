@@ -40,7 +40,6 @@ class PostPage extends Component {
   postSaveFunction = async() =>{
     const { form, dispatch } = this.props;
     const param = form.getFieldsValue();
-    param.status="Available";
     await postRegister(param, dispatch);
   }
 

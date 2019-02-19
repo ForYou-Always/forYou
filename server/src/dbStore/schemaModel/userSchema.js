@@ -9,7 +9,6 @@ const userControlSchema = new Schema({
   contact_no: Number,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  role:String,
   create_date: { type: Date, default: Date.now },
   update_date: { type: Date, default: Date.now }
 });
