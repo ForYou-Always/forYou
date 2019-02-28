@@ -102,5 +102,6 @@ async function checkUserExists(mail_id){
 
 module.exports ={
     profileScript,
-    addRoleInfo
+    addRoleInfo,
+    addUserRoleInfo
 }

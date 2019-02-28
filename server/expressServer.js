@@ -7,7 +7,7 @@ const CONST = require('./src/constant');
 const { port  } = require('./server-properties').app_server;
 
 const { validateSession } = require('./src/utility/authenticationFilter');
-const { profileScript, addRoleInfo } = require('./src/service/startupAsyncService');
+const { profileScript, addRoleInfo, addUserRoleInfo } = require('./src/service/startupAsyncService');
 const webPush = require('./src/notifications/webPush');
 const socketServer = require('./src/notifications/socketServer');
 
@@ -64,6 +64,6 @@ server.listen(process.env.PORT || port);*/
 
 //profileScript();
 addRoleInfo();
-
+addUserRoleInfo();
 
 httpServer.listen(process.env.PORT || port);
