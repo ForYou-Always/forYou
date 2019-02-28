@@ -25,3 +25,10 @@ export const resetPassword = async (param, dispatch) => {
   const data = await postReqText(`${SERVER_PATH}user/reset-password`, param);
   return data;
 }
+
+export const sendFeedbackMail = async (param, dispatch) => {
+  dispatch({ type: ACTION_TYPES.RECEIVE_FEEDBACK_MAIL });
+  const data = await postReqText(`${SERVER_PATH}user/testing`, param);
+  console.log("response",data);
+  return data;
+}

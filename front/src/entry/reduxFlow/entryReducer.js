@@ -12,8 +12,19 @@ function getSignupInfo(state = immutableMap(), action){
 	}
 };
 
+function sendFeedbackMail(state = false, action){
+  switch (action.type){
+  case ACTION_TYPES.RECEIVE_FEEDBACK_MAIL:
+    return action.data
+    break;
+  default:
+    return state;
+  }
+};
+
 const entryReducer = combineReducers({
-  getSignupInfo
+  getSignupInfo,
+  sendFeedbackMail
 });
 
 

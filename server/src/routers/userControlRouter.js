@@ -33,6 +33,12 @@ router.post('/forgot-password', async (req, res, next) => {
   res.send({ responseResult });
 });
 
+router.post('/testing', async (req, res, next) => {
+  console.log('Testinggggggggggggggggggg');
+  const responseResult=  await userControlService.requestFeedbackMail(req, res, next);
+  res.send({ responseResult });
+});
+
 router.post('/reset-password', async (req, res, next) => {
   const responseResult=  await userControlService.resetUserPassword(req, res, next);
   res.send({responseResult});

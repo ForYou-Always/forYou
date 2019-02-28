@@ -151,6 +151,26 @@ const signOutUser = async(res, next) => {
   res.clearCookie(tokenName).send({ msg: `Logout Success` });
 };
 
+const requestFeedbackMail = async(req,res, next) => {
+  const { host } = req.headers;
+  const { email,subject,message } = req.body;
+
+  console.log("paramFromJs",  req.body);
+  const mailOptions = {
+      to: req.body.email,
+      from: 'foryoutest01@gmail.com',
+      subject: 'Node.js Password Reset'
+  };
+
+    mailOptions.text = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+    'http://' + host + '/user/reset-password/' + token + '\n\n' +
+    'If you did not request this, please ignore this email and your password will remain unchanged.\n';
+
+    await mailSender(mailOptions, next);
+
+};
+
 module.exports = {
     registerNewUser,
     requestForgotPassword,
