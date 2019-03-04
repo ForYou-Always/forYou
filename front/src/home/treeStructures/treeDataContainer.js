@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Tree, Icon, Switch } from 'antd';
+import { Tree as AntTree, Icon, Switch } from 'antd';
 import { retreiveHierarchy } from './flux/treeActions';
+import Tree from 'react-tree-graph';
+import 'react-tree-graph/dist/style.css'
+import '../../styles/treeGraph.css'
 
-const { TreeNode } = Tree;
+const { TreeNode } = AntTree;
 
 class TreeDataContainer extends Component {
   
@@ -58,23 +61,97 @@ class TreeDataContainer extends Component {
     return (childList.map((data) => this.constructParentNode(data)));
   }
   
+  constructTabStructures = (hierarchy) => {
+    const tabRecords={};
+    const singleDevForms=[], multiChildForms=[];
+
+    hierarchy.map((record) => {
+      const { child, parent, childEntry } = record;
+      if(!child && parent && !childEntry){
+        singleDevForms.push(record);
+      }else {
+        multiChildForms.push(record);
+      }
+    });
+
+    return { singleDevForms, multiChildForms };
+  }
+  
+  computeMultiChildSet = (multiChildForms) => {
+  }
+  
+  constructMultichildTree = (childFormSet) => {
+    childFormSet.forEach((record, index, thisArray) => {
+      const { fileName, childEntry } = record;
+      record['name'] = `${fileName}`;
+      if(childEntry && childEntry.length > 0){
+        record.childEntry = this.constructMultichildTree(childEntry);
+      }
+      record['children'] = childEntry;
+      thisArray[index] = record;
+    });
+    return childFormSet;
+  }
+  
+  sortTree = (first, second) => {
+    const firsChild = first.childEntry ? first.childEntry:[];
+    const secChild = second.childEntry? second.childEntry:[];
+    if(firsChild.length > secChild.length) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+  
+  computeHeight = (d3Data) => {
+    const { childEntry } = d3Data;
+    let treeHeight = 0;
+    if(childEntry) {
+      treeHeight = childEntry.length;
+      childEntry.forEach((childData) => {
+        treeHeight = treeHeight + this.computeHeight(childData);
+      });
+    }
+    return treeHeight;
+  }
+  
   render() {
     
     const { showChild } = this.state;
     const { hierarchy } = this.props;
     console.log(hierarchy);
     
+    const { singleDevForms, multiChildForms } = hierarchy && this.constructTabStructures(hierarchy);
+    
+    const multiTree = multiChildForms && this.constructMultichildTree(multiChildForms);
+    
+    const sortedTree = multiTree && multiTree.sort(this.sortTree);
+//    const sortedTree = multiTree;
+    
     return (<div>
-        {hierarchy && hierarchy.map((data, index) => 
-          <Tree
+        {false && hierarchy && hierarchy.map((data, index) => 
+          <AntTree
             showIcon
             defaultExpandAll={showChild}
             onSelect={this.onSelect}
             onCheck={this.onCheck}
           >
             {this.constructParentNode(data)}
-          </Tree>
-    )}</div>);
+          </AntTree>
+    )}
+        <div className="custom-container">    
+          {sortedTree && sortedTree.map((d3Data, index) => 
+              <Tree
+                data={d3Data}
+                height={this.computeHeight(d3Data) * 75}
+                width={500}
+                animated
+                svgProps={{
+                  className: 'custom'
+                }}/>
+          )}
+        </div>
+        </div>);
   }
 }
 
