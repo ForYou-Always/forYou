@@ -26,20 +26,7 @@ router.post('/register',async (req, res, next) => {
   res.send({responseResult});
 });
 
-router.post('/user-profile',async (req, res, next) => {
-  const responseResult= await userControlService.registerUserProfile(req, res, next);
-  res.send({responseResult});
-});
 
-router.put('/user-profile-update',async (req, res, next) => {
-  const responseResult= await userControlService.updateUserProfile(req, res, next);
-  res.send({responseResult});
-});
-
-router.delete('/user-profile-delete',async (req, res, next) => {
-  const responseResult= await userControlService.deleteUserProfile(req, res, next);
-  res.send({responseResult});
-});
 
 router.post('/forgot-password', async (req, res, next) => {
   const responseResult=  await userControlService.requestForgotPassword(req, res, next);
@@ -51,8 +38,19 @@ router.post('/reset-password', async (req, res, next) => {
   res.send({responseResult});
 });
 
-router.put('/update/personal-info',(req,res) => {
+router.post('/add',async (req, res, next) => {
+  const responseResult= await userControlService.registerUserProfile(req, res, next);
+  res.send({responseResult});
+});
 
+router.put('/update',async (req, res, next) => {
+  const responseResult= await userControlService.updateUserProfile(req, res, next);
+  res.send({responseResult});
+});
+
+router.delete('/delete',async (req, res, next) => {
+  const responseResult= await userControlService.deleteUserProfile(req, res, next);
+  res.send({responseResult});
 });
 
 module.exports = router;

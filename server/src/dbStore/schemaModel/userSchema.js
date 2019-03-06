@@ -29,7 +29,7 @@ const userProfileSchema = new Schema({
   govt_proof_type:String,
   govt_proof_id:String,
   ngo_or_normal_user:String,
-  create_date: { type: Date, default: Date.now },
+  create_date: Date,
   update_date: { type: Date, default: Date.now }
 });
 

@@ -17,27 +17,20 @@ const resetUserPassword =  async (req, res, next) => {
 }
 
 const registerUserProfile =  async (req, res, next) => {
-  const { mail_id, name, date_of_birth,current_living_city,photo,govt_proof_type,govt_proof_id,ngo_or_normal_user } = req.body;
+  const  userProfileDetails  = req.body;
   let result ;
-  const userProfileDao = new UserProfileModel({
-    mail_id: mail_id,
-    name: name,
-    date_of_birth: date_of_birth,
-    current_living_city: current_living_city,
-    photo: photo,
-    govt_proof_type: govt_proof_type,
-    govt_proof_id: govt_proof_id,
-    ngo_or_normal_user: ngo_or_normal_user
-  });
-  const userProfileExist = await UserProfileModel.findOne({ mail_id: mail_id });
-  if(!userProfileExist){
+  userProfileDetails.create_date = new Date();
+  const userProfileDao = new UserProfileModel(userProfileDetails);
+  const userProfileExist = await UserProfileModel.findOne({ mail_id: userProfileDetails.mail_id });
+  const userSaltInfo = await UserSaltModel.findOne({ mail_id: userProfileDetails.mail_id  });
+  if(!userProfileExist && userSaltInfo){
     result = await userProfileDao.save();
   }
 }
 
 const updateUserProfile = async (req, res, next) => {
-  const updateValues = req.body;
-  const result = await UserProfileModel.updateOne({mail_id : updateValues.mail_id},updateValues);
+  const userProfileValues = req.body;
+  const result = await UserProfileModel.updateOne({mail_id : userProfileValues.mail_id},userProfileValues);
   return result;
 }
 
