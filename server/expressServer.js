@@ -2,6 +2,7 @@ const express = require('express');
 const server = express();
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const requestIp = require('request-ip');
 
 const CONST = require('./src/constant');
 const { port  } = require('./server-properties').app_server;
@@ -12,10 +13,13 @@ const webPush = require('./src/notifications/webPush');
 const socketServer = require('./src/notifications/socketServer');
 
 const userControlRouter = require(CONST.USER_CONTROL_ROUTER);
+const intraWebRouter = require(CONST.INTRA_WEB_ROUTER);
 
+server.use(requestIp.mw())
 
 /*To allow cross-origin request from other servers*/
 server.use(function(req, res, next) {
+  const clientIp = requestIp.getClientIp(req); 
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -36,6 +40,7 @@ server.use(bodyParser.json());
  *Express-Routing  middleware
 */ 
 server.use('/user', userControlRouter);
+server.use('/intraweb', intraWebRouter);
 
 server.post('/subscribe', (req, res) => {
 	const subscription = req.body;

@@ -12,8 +12,19 @@ function getTreeFormedData(state = false, action){
 	}
 };
 
+function getVersionControlData(state = false, action){
+  switch (action.type){
+    case ACTION_TYPES.RECEIVE_VERSION_CONTROL_DATA:
+      return action.data;
+      break;
+    default:
+      return state;
+  }
+};
+
 const treeReducer = combineReducers({
-  getTreeFormedData
+  getTreeFormedData,
+  getVersionControlData
 });
 
 
