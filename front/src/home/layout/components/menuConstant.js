@@ -19,7 +19,7 @@ export const MENU_CONSTANT =  [{
   icon: "sound",
   nestedMenu:[{
     name:"NGO",
-    path:"/kl/time"
+    path:"/ngoUserProfile"
   },{
     name:"Crisis",
     path:"/kl/time"

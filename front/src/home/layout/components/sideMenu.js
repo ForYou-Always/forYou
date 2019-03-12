@@ -51,7 +51,7 @@ class SideMenu extends Component {
         {subMenuItems.map(data => <SubMenu key= {data.name} title={<span>
         <Icon type={data.icon} theme={themeValue} style={styles.subMenuIcon} /><span>{data.name}</span></span>}>
         {
-          data.nestedMenu.map( nestedValue => <Menu.Item key={nestedValue.name}>{nestedValue.name}</Menu.Item> )
+          data.nestedMenu.map( nestedValue => <Menu.Item key={nestedValue.name} onClick= {() => console.log(nestedValue.path)}>{nestedValue.name}</Menu.Item> )
         }
         </SubMenu>
         )}
