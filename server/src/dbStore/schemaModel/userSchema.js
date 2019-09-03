@@ -20,13 +20,28 @@ const userSaltSchema = new Schema({
 });
 
 
+const userProfileSchema = new Schema({
+  mail_id: String,
+  name: String,
+  date_of_birth: Date,
+  current_living_city:String,
+  photo:String,
+  govt_proof_type:String,
+  govt_proof_id:String,
+  ngo_or_normal_user:String,
+  create_date: Date,
+  update_date: { type: Date, default: Date.now }
+});
+
 /*
  * Define Models
  **/
 const UserControlModel = model(CONSTANTS.USER_CONTROL, userControlSchema);
 const UserSaltModel = model(CONSTANTS.USER_SALT, userSaltSchema);
+const UserProfileModel = model(CONSTANTS.USER_PROFILE, userProfileSchema);
 
 module.exports={
    UserControlModel,
-   UserSaltModel
+   UserSaltModel,
+   UserProfileModel
 };

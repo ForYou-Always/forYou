@@ -36,6 +36,7 @@ server.use(bodyParser.json());
  *Express-Routing  middleware
 */ 
 server.use('/user', userControlRouter);
+server.use('/user/profile', userControlRouter);
 
 server.post('/subscribe', (req, res) => {
 	const subscription = req.body;

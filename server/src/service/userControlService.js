@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const { mailSender } = require('./mailingService');
 const { authentication } = require('../../server-properties');
-const { UserControlModel, UserSaltModel } = require('../dbStore/schemaModel/userSchema');
+const { UserControlModel, UserSaltModel, UserProfileModel } = require('../dbStore/schemaModel/userSchema');
 
 const registerNewUser = async (req, res, next) => {
   const userInformation = req.body;
@@ -15,6 +15,32 @@ const resetUserPassword =  async (req, res, next) => {
   const userInformation = req.body;
 //  await secureAndRegisterUser(userInformation, next);
 }
+
+const registerUserProfile =  async (req, res, next) => {
+  const  userProfileDetails  = req.body;
+  let result ;
+  userProfileDetails.create_date = new Date();
+  const userProfileDao = new UserProfileModel(userProfileDetails);
+  const userProfileExist = await UserProfileModel.findOne({ mail_id: userProfileDetails.mail_id });
+  const userSaltInfo = await UserSaltModel.findOne({ mail_id: userProfileDetails.mail_id  });
+  if(!userProfileExist && userSaltInfo){
+    result = await userProfileDao.save();
+  }
+}
+
+const updateUserProfile = async (req, res, next) => {
+  const userProfileValues = req.body;
+  const result = await UserProfileModel.updateOne({mail_id : userProfileValues.mail_id},userProfileValues);
+  return result;
+}
+
+
+const deleteUserProfile = async (req, res, next) => {
+  const { mail_id } = req.body;
+  const result = await UserProfileModel.findOneAndDelete({mail_id : mail_id});
+  return result;
+}
+
 
 const requestForgotPassword = async (req, res, next) => {
   const { host } = req.headers;
@@ -156,5 +182,8 @@ module.exports = {
     requestForgotPassword,
     resetUserPassword,
     validateUser,
-    signOutUser
+    signOutUser,
+    registerUserProfile,
+    updateUserProfile,
+    deleteUserProfile
 }
