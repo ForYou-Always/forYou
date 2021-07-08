@@ -1,0 +1,16 @@
+[{
+  "mail_id": "slogeshcs@gmail.com",
+  "role": "user,admin"
+},{
+  "mail_id": "vairavan.u@gmail.com",
+  "role": "user,developer"
+},{
+  "mail_id": "erodepraveen94@gmail.com",
+  "role": "user,volunteer"
+},{
+  "mail_id": "shashank.krishnam@gmail.com",
+  "role": "ngo"
+},{
+  "mail_id": "imraaimmu@gmail.com",
+  "role": "user,customer_support"
+}]
